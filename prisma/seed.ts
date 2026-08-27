@@ -1,15 +1,20 @@
 /**
- * Seed script — representative dataset for the initial milestone.
+ * Seed script.
  *
- * This is a curated starting set (5 provinces, 6 brands, 5 models), NOT the
- * full 81-province / 70+-brand target. The routing/template engine (see
- * src/app/[ilSlug]-robot-supurge-servisi etc.) reads entirely from the DB,
- * so scaling to full coverage later is a content/data task, not a code
- * change. See known-issues.md: brand fault text and model specs here are
+ * All 81 provinces are seeded (prisma/data/provinces.ts - authoritative
+ * plaka kodu + region table, region-grounded content, see that file's
+ * header for what "differentiated" means here). Brands cover 28 real,
+ * verified manufacturers (prisma/data/brands.ts) - not yet the full "70+"
+ * MASTER_PROMPT.md target; reaching that requires a brand catalog verified
+ * against the business's actual supplier/import list (backlog.md), which
+ * this seed does not fabricate. Models remain a small curated set (5) —
+ * see known-issues.md: fault text and model specs here are
  * commonly-published approximations and should be verified against
  * manufacturer spec sheets before this becomes real production copy.
  */
 import { PrismaClient } from "@prisma/client";
+import { PROVINCES } from "./data/provinces";
+import { EXTRA_BRANDS } from "./data/brands";
 
 const prisma = new PrismaClient();
 
@@ -124,6 +129,8 @@ async function main() {
     }),
   ]);
 
+  await prisma.brand.createMany({ data: EXTRA_BRANDS });
+
   const [roborock, xiaomi, dreame] = brands;
 
   await prisma.model.createMany({
@@ -192,81 +199,14 @@ async function main() {
     ],
   });
 
-  await prisma.province.createMany({
-    data: [
-      {
-        slug: "samsun",
-        name: "Samsun",
-        plateCode: "55",
-        region: "Karadeniz",
-        leadTimeLabel: "Aynı gün / 1 iş günü (merkez atölye)",
-        regionalIntro:
-          "Samsun Robot Hastanesi'nin merkez atölyesi Samsun'da bulunduğu için şehir içi taleplerde aynı gün adresten teslim alma ve hızlı arıza tespiti mümkündür. Karadeniz'in nemli iklimi robot süpürgelerde sensör ve tekerlek bölgesinde nem birikmesine yol açabildiğinden, periyodik bakım özellikle önemlidir.",
-        topBrandSlugs: JSON.stringify(["roborock", "xiaomi", "dreame"]),
-        faqJson: JSON.stringify([
-          { question: "Samsun içinde adresten cihaz alıyor musunuz?", answer: "Evet, Samsun merkez ve yakın ilçelerde adresinizden ücretsiz cihaz teslim alma hizmetimiz vardır." },
-          { question: "Samsun'da aynı gün teslim mümkün mü?", answer: "Basit arızalarda (sensör temizliği, yazılım sıfırlama gibi) aynı gün teslim mümkün olabilir; parça değişimi gereken arızalarda süre işin kapsamına göre değişir." },
-        ]),
-      },
-      {
-        slug: "istanbul",
-        name: "İstanbul",
-        plateCode: "34",
-        region: "Marmara",
-        leadTimeLabel: "1-2 iş günü",
-        regionalIntro:
-          "İstanbul'un yoğun kentsel kullanım yoğunluğu ve halı/parke karışık zemin yapısı, robot süpürgelerde fırça ve tekerlek aşınmasını hızlandırabilir. İstanbul'dan gelen cihazlar anlaşmalı kargo ile 1-2 iş günü içinde atölyemize ulaşır.",
-        topBrandSlugs: JSON.stringify(["roborock", "xiaomi", "ecovacs"]),
-        faqJson: JSON.stringify([
-          { question: "İstanbul'dan Samsun'a kargo ücretini kim karşılıyor?", answer: "Servis talebi onaylandıktan sonra gönderim koşulları ve kargo bilgisi tarafınıza açıkça iletilir." },
-        ]),
-      },
-      {
-        slug: "ankara",
-        name: "Ankara",
-        plateCode: "06",
-        region: "İç Anadolu",
-        leadTimeLabel: "1-2 iş günü",
-        regionalIntro:
-          "Ankara'nın kuru iklimi ve toz yoğunluğu, robot süpürgelerin filtre ve fırça bölgelerinde sık tıkanmaya yol açabilir; düzenli filtre bakımı burada özellikle önemlidir.",
-        topBrandSlugs: JSON.stringify(["roborock", "dreame", "irobot"]),
-        faqJson: JSON.stringify([
-          { question: "Ankara'dan gönderilen cihazlar hangi kargo ile taşınıyor?", answer: "Anlaşmalı kargo firmalarımızdan biriyle kapınızdan alım sağlanır; gönderim kodu servis talebi sonrası size iletilir." },
-        ]),
-      },
-      {
-        slug: "izmir",
-        name: "İzmir",
-        plateCode: "35",
-        region: "Ege",
-        leadTimeLabel: "2-3 iş günü",
-        regionalIntro:
-          "Ege bölgesinin nemli kıyı iklimi, özellikle yaz aylarında robot süpürgelerin elektronik bileşenlerinde nem kaynaklı arızaları artırabilir; bu bölgeden gelen cihazlarda anakart nem testi standart kontrol adımlarımız arasındadır.",
-        topBrandSlugs: JSON.stringify(["ecovacs", "xiaomi", "dyson"]),
-        faqJson: JSON.stringify([
-          { question: "İzmir'den Samsun'a gönderim süresi ne kadar?", answer: "Ortalama 2-3 iş günü içinde cihazınız atölyemize ulaşır." },
-        ]),
-      },
-      {
-        slug: "trabzon",
-        name: "Trabzon",
-        plateCode: "61",
-        region: "Karadeniz",
-        leadTimeLabel: "1 iş günü",
-        regionalIntro:
-          "Trabzon, Samsun'a coğrafi yakınlığı sayesinde Karadeniz hattındaki en hızlı servis sürelerinden birine sahiptir. Bölgenin yüksek nem oranı, Samsun'da olduğu gibi sensör ve tekerlek bakımını öne çıkarır.",
-        topBrandSlugs: JSON.stringify(["roborock", "xiaomi", "irobot"]),
-        faqJson: JSON.stringify([
-          { question: "Trabzon'dan gönderim Samsun'dan farklı mı işliyor?", answer: "Süreç aynıdır; sadece bölgesel yakınlık nedeniyle kargo süresi genellikle daha kısadır." },
-        ]),
-      },
-    ],
-  });
+  await prisma.province.createMany({ data: PROVINCES });
 
+  const totalBrands = await prisma.brand.count();
+  const totalProvinces = await prisma.province.count();
   console.log("Seed tamamlandı:", {
-    brands: brands.length,
+    brands: totalBrands,
     models: 5,
-    provinces: 5,
+    provinces: totalProvinces,
   });
 }
 
