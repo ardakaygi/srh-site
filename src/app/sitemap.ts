@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllBrands, getAllModelsWithBrand, getAllProvinces } from "@/lib/data";
+import { BLOG_POSTS } from "@/lib/blogPosts";
 import { ilMarkaSlug, modelFullSlug } from "@/lib/slugs";
 import { siteConfig } from "@/lib/site-config";
 
@@ -18,13 +19,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteConfig.siteUrl}/hizmet-bolgeleri`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${siteConfig.siteUrl}/servis-talep`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteConfig.siteUrl}/servis-takip`, changeFrequency: "monthly", priority: 0.5 },
-    { url: `${siteConfig.siteUrl}/atolye`, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${siteConfig.siteUrl}/tamir-merkezi`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${siteConfig.siteUrl}/kurumsal`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${siteConfig.siteUrl}/iletisim`, changeFrequency: "yearly", priority: 0.4 },
     { url: `${siteConfig.siteUrl}/kvkk-aydinlatma-metni`, changeFrequency: "yearly", priority: 0.2 },
     { url: `${siteConfig.siteUrl}/cerez-politikasi`, changeFrequency: "yearly", priority: 0.2 },
     { url: `${siteConfig.siteUrl}/telif-ve-marka-bildirimi`, changeFrequency: "yearly", priority: 0.2 },
+    { url: `${siteConfig.siteUrl}/yasal-uyari`, changeFrequency: "yearly", priority: 0.2 },
+    { url: `${siteConfig.siteUrl}/sss`, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${siteConfig.siteUrl}/blog`, changeFrequency: "weekly", priority: 0.6 },
   ];
+
+  const blogRoutes: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
+    url: `${siteConfig.siteUrl}/blog/${post.slug}`,
+    lastModified: post.publishedAt,
+    changeFrequency: "yearly",
+    priority: 0.5,
+  }));
 
   const provinceRoutes: MetadataRoute.Sitemap = provinces.map((p) => ({
     url: `${siteConfig.siteUrl}/${ilMarkaSlug(p.slug)}`,
@@ -47,5 +58,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...provinceRoutes, ...brandRoutes, ...modelRoutes];
+  return [...staticRoutes, ...blogRoutes, ...provinceRoutes, ...brandRoutes, ...modelRoutes];
 }

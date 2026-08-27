@@ -11,6 +11,8 @@ const navLinks = [
   { href: "/servis-talep", label: "Servis Talebi Oluştur" },
   { href: "/servis-takip", label: "Kargo Takip" },
   { href: "/kurumsal", label: "Kurumsal" },
+  { href: "/blog", label: "Blog" },
+  { href: "/sss", label: "Sık Sorulan Sorular" },
   { href: "/iletisim", label: "İletişim" },
 ];
 

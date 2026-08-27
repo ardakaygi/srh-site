@@ -15,7 +15,7 @@ export function Footer() {
         <div>
           <h3 className="text-sm font-semibold text-white">Hizmetler</h3>
           <ul className="mt-2 space-y-1 text-sm">
-            <li><Link href="/atolye" className="hover:text-white">Atölyemiz</Link></li>
+            <li><Link href="/tamir-merkezi" className="hover:text-white">Tamir Merkezimiz</Link></li>
             <li><Link href="/servis-talep" className="hover:text-white">Servis Talebi</Link></li>
             <li><Link href="/servis-takip" className="hover:text-white">Kargo Takip</Link></li>
           </ul>
@@ -31,10 +31,13 @@ export function Footer() {
           <h3 className="text-sm font-semibold text-white">Kurumsal</h3>
           <ul className="mt-2 space-y-1 text-sm">
             <li><Link href="/kurumsal" className="hover:text-white">Hakkımızda</Link></li>
+            <li><Link href="/blog" className="hover:text-white">Blog</Link></li>
+            <li><Link href="/sss" className="hover:text-white">Sık Sorulan Sorular</Link></li>
             <li><Link href="/iletisim" className="hover:text-white">İletişim</Link></li>
             <li><Link href="/kvkk-aydinlatma-metni" className="hover:text-white">KVKK Aydınlatma Metni</Link></li>
             <li><Link href="/cerez-politikasi" className="hover:text-white">Çerez Politikası</Link></li>
             <li><Link href="/telif-ve-marka-bildirimi" className="hover:text-white">Telif ve Marka Bildirimi</Link></li>
+            <li><Link href="/yasal-uyari" className="hover:text-white">Yasal Uyarı</Link></li>
           </ul>
         </div>
       </div>

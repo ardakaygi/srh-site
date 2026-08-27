@@ -9,7 +9,7 @@ import { ilMarkaSlug } from "@/lib/slugs";
 const processSteps = [
   "Servis talebi formunu doldurun, marka/model ve arızayı belirtin",
   "Size özel kargo kodu ile cihazınızı anlaşmalı kargoya teslim edin",
-  "Atölyemize ulaşan cihazınıza ücretsiz arıza tespiti yapılır",
+  "Merkezimize ulaşan cihazınıza ücretsiz arıza tespiti yapılır",
   "Onarım teklifini onayladığınızda tamir işlemine başlanır",
   "Test edilen cihazınız kargo ile adresinize geri gönderilir",
 ];

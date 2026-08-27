@@ -181,3 +181,49 @@ export function ShieldCheckIcon({ className = base }: IconProps) {
     </svg>
   );
 }
+
+export function ClipboardIcon({ className = base }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinejoin="round" className={className}>
+      <rect x="5" y="4.5" width="14" height="17" rx="1.5" />
+      <rect x="9" y="2.5" width="6" height="3.5" rx="1" />
+      <path d="M8.5 11h7M8.5 14.5h7M8.5 18h4.5" />
+    </svg>
+  );
+}
+
+export function SearchIcon({ className = base }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" className={className}>
+      <circle cx="10.5" cy="10.5" r="6.5" />
+      <path d="M19.5 19.5 15.3 15.3" />
+    </svg>
+  );
+}
+
+export function ThumbsUpIcon({ className = base }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinejoin="round" className={className}>
+      <path d="M7 21H4V10h3v11Z" />
+      <path d="M7 10l4.5-7c1.5 0 2.5 1.3 2 2.7L12.5 9H19a2 2 0 011.9 2.7l-2.4 7A2 2 0 0116.7 21H7" />
+    </svg>
+  );
+}
+
+export function GaugeIcon({ className = base }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" className={className}>
+      <path d="M4 15a8 8 0 1116 0" />
+      <path d="M12 15l4-5" />
+      <path d="M12 15h.01" />
+    </svg>
+  );
+}
+
+export function WrenchIcon({ className = base }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinejoin="round" className={className}>
+      <path d="M14.5 6.5a4 4 0 00-5.4 4.9L4 16.5V20h3.5l5.1-5.1a4 4 0 004.9-5.4l-2.9 2.9-2.5-.5-.5-2.5 2.9-2.9Z" />
+    </svg>
+  );
+}

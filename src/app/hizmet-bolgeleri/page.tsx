@@ -27,7 +27,7 @@ export default async function HizmetBolgeleriPage() {
         Hizmet Bölgelerimiz
       </h1>
       <p className="mt-2 text-slate-600">
-        Samsun merkezli atölyemizden Türkiye&apos;nin 81 iline anlaşmalı
+        Samsun&apos;daki merkezimizden Türkiye&apos;nin 81 iline anlaşmalı
         kargo ile hizmet veriyoruz. Aşağıda şu anda yayında olan il
         sayfalarını görebilirsiniz — kapsam kademeli olarak tüm illere
         genişletilmektedir.

@@ -6,6 +6,11 @@
  */
 export const siteConfig = {
   businessName: "Samsun Robot Hastanesi",
+  // Confirmed by the user directly in-session (2026-08-27) - not inferred.
+  // This is the registered legal/commercial entity operating the
+  // "Samsun Robot Hastanesi" consumer-facing brand; used on legal pages
+  // (KVKK, Yasal Uyarı) where the actual ticaret unvanı is required.
+  legalEntityName: "Starfon Teknoloji San. Tic. Ltd. Şti.",
   // TODO(confirm-before-launch): real production domain.
   siteUrl: "https://samsunrobothastanesi.com.tr",
   // Confirmed by the user directly in-session (2026-08-27) - not inferred.

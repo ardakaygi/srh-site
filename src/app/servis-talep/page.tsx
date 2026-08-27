@@ -24,7 +24,7 @@ export default async function ServisTalepPage() {
     faults: b.faults.slice(0, 6),
     models: allModels
       .filter((m) => m.brandId === b.id)
-      .map((m) => ({ id: m.id, name: m.name })),
+      .map((m) => ({ id: m.id, name: m.name, commonIssues: m.commonIssues })),
   }));
 
   return (

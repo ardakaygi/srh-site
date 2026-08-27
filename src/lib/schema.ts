@@ -26,6 +26,23 @@ export function serviceNode(params: {
   };
 }
 
+export function articleNode(params: {
+  headline: string;
+  description: string;
+  datePublished: string;
+  url: string;
+}) {
+  return {
+    "@type": "BlogPosting",
+    headline: params.headline,
+    description: params.description,
+    datePublished: params.datePublished,
+    url: params.url,
+    author: { "@id": `${siteConfig.siteUrl}/#organization` },
+    publisher: { "@id": `${siteConfig.siteUrl}/#organization` },
+  };
+}
+
 export function faqPageNode(items: { question: string; answer: string }[]) {
   if (items.length === 0) return null;
   return {

@@ -4,6 +4,8 @@ import { BrandsShowcase } from "@/components/BrandsShowcase";
 import { GoogleReviewsSection } from "@/components/GoogleReviewsSection";
 import { ProvinceQuickSelect } from "@/components/ProvinceQuickSelect";
 import { ServiceCoverageMap } from "@/components/ServiceCoverageMap";
+import { ServiceProcessSection } from "@/components/ServiceProcessSection";
+import { TestCalibrationSection } from "@/components/TestCalibrationSection";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { getAllBrands, getAllProvinces } from "@/lib/data";
 import { siteConfig } from "@/lib/site-config";
@@ -326,6 +328,10 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <ServiceProcessSection />
+
+      <TestCalibrationSection />
+
       <BrandsShowcase brands={allBrands} />
 
       <section className="overflow-hidden bg-slate-50 px-4 py-16">
@@ -354,7 +360,7 @@ export default async function HomePage() {
               81 İlin Tamamına Robot Süpürge Servisi
             </h2>
             <p className="mt-3 text-slate-600">
-              Samsun&apos;daki merkez atölyemizden, anlaşmalı kargo ağıyla
+              Samsun&apos;daki merkezimizden, anlaşmalı kargo ağıyla
               Türkiye&apos;nin her iline ulaşıyoruz. Nerede olursanız olun,
               cihazınızı bize güvenle gönderebilirsiniz.
             </p>

@@ -3,9 +3,9 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
-  title: "Atölyemiz",
+  title: "Tamir Merkezimiz",
   description:
-    "Samsun'daki teknik atölyemizde mikro lehim seviyesinde anakart onarımı, LiDAR sensör kalibrasyonu ve özel spot kaynaklı batarya paketi üretimi yapıyoruz.",
+    "Samsun'daki teknik tamir merkezimizde mikro lehim seviyesinde anakart onarımı, LiDAR sensör kalibrasyonu ve özel spot kaynaklı batarya paketi üretimi yapıyoruz.",
 };
 
 const capabilities = [
@@ -26,23 +26,23 @@ const capabilities = [
   },
 ];
 
-export default function AtolyePage() {
+export default function TamirMerkeziPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
       <Breadcrumbs
         items={[
           { label: "Anasayfa", href: "/" },
-          { label: "Atölyemiz", href: "/atolye" },
+          { label: "Tamir Merkezimiz", href: "/tamir-merkezi" },
         ]}
       />
       <h1 className="mt-4 text-3xl font-bold text-slate-900">
-        Samsun Teknik Atölyemiz
+        Samsun Teknik Tamir Merkezimiz
       </h1>
       <p className="mt-4 leading-relaxed text-slate-700">
-        Samsun&apos;daki merkez atölyemizde, robot süpürgelerin en karmaşık
+        Samsun&apos;daki merkezimizde, robot süpürgelerin en karmaşık
         arızalarını bile çözebilecek donanım ve uzmanlığa sahibiz. Basit
         sensör temizliğinden mikro lehim seviyesinde anakart onarımına kadar
-        tüm işlemler kendi atölyemizde, kalifiye teknisyenler tarafından
+        tüm işlemler kendi merkezimizde, kalifiye teknisyenler tarafından
         yapılır.
       </p>
 

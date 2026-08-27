@@ -67,7 +67,7 @@ const values = [
   },
   {
     title: "Teknik Derinlik",
-    description: "Basit parça değişiminin ötesinde, mikro lehim seviyesinde anakart onarımı ve özel batarya üretimi yapabilen bir atölyeyiz.",
+    description: "Basit parça değişiminin ötesinde, mikro lehim seviyesinde anakart onarımı ve özel batarya üretimi yapabilen bir tamir merkeziyiz.",
     Icon: ChipIcon,
   },
   {
@@ -77,7 +77,7 @@ const values = [
   },
   {
     title: "Erişilebilirlik",
-    description: "Samsun'daki tek bir atölyeden, anlaşmalı kargo ağıyla Türkiye'nin 81 iline aynı kalitede hizmet ulaştırıyoruz.",
+    description: "Samsun'daki tek bir merkezden, anlaşmalı kargo ağıyla Türkiye'nin 81 iline aynı kalitede hizmet ulaştırıyoruz.",
     Icon: CompassIcon,
   },
 ];
@@ -95,7 +95,7 @@ const stats = [
   { value: "81", label: "İlde Hizmet" },
   { value: "29+", label: "Markada Uzmanlık" },
   { value: siteConfig.warrantyLabel.replace(" Garanti", ""), label: "Garanti Süresi" },
-  { value: "Samsun", label: "Merkez Atölye" },
+  { value: "Samsun", label: "Merkez Tesis" },
 ];
 
 export default function KurumsalPage() {
@@ -137,7 +137,7 @@ export default function KurumsalPage() {
           bağımsız bir teknik servisiz.
         </p>
         <p>
-          Atölyemizde arıza tespitinden nihai teslimata kadar tüm süreç kendi
+          Merkezimizde arıza tespitinden nihai teslimata kadar tüm süreç kendi
           çatımız altında yürütülür: LiDAR sensör kalibrasyonundan mikro
           lehim seviyesinde anakart onarımına, aşınmış motor ve tekerlek
           gruplarının yenilenmesinden orijinal hücrelerle spot kaynaklı özel
@@ -147,7 +147,7 @@ export default function KurumsalPage() {
           bizi ayıran temel fark.
         </p>
         <p>
-          Samsun&apos;da tek bir merkez atölyeden çalışıyor olmamız, hizmet
+          Samsun&apos;da tek bir merkezden çalışıyor olmamız, hizmet
           alanımızı sınırlamıyor: anlaşmalı kargo ağımız sayesinde
           Türkiye&apos;nin 81 iline aynı süreç ve aynı kalite standardıyla
           ulaşabiliyoruz. Cihazınızı nereden gönderirseniz gönderin, sizi

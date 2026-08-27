@@ -11,7 +11,7 @@ interface BrandOption {
   id: string;
   name: string;
   faults: { title: string }[];
-  models: { id: string; name: string }[];
+  models: { id: string; name: string; commonIssues: { title: string }[] }[];
 }
 
 interface ProvinceOption {
@@ -49,6 +49,11 @@ export function ServiceRequestForm({
   const selectedBrand = useMemo(
     () => brands.find((b) => b.id === brandId) ?? null,
     [brands, brandId],
+  );
+
+  const selectedModel = useMemo(
+    () => selectedBrand?.models.find((m) => m.id === modelChoice) ?? null,
+    [selectedBrand, modelChoice],
   );
 
   const errors = state.status === "error" ? state.errors ?? {} : {};
@@ -198,10 +203,36 @@ export function ServiceRequestForm({
       <fieldset className={step === 2 ? "space-y-4" : "hidden"}>
         <legend className="text-lg font-semibold text-slate-900">Arıza Bilgisi</legend>
 
+        {selectedModel && selectedModel.commonIssues.length > 0 && (
+          <div>
+            <p className="text-sm font-medium text-slate-700">
+              {selectedModel.name} modelinde sık görülen arızalar:
+            </p>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {selectedModel.commonIssues.map((f) => (
+                <button
+                  key={f.title}
+                  type="button"
+                  onClick={() =>
+                    setFaultDescription((prev) =>
+                      prev.includes(f.title) ? prev : (prev ? `${prev}\n${f.title}` : f.title),
+                    )
+                  }
+                  className="rounded-full border border-brand-300 bg-brand-50 px-3 py-1 text-xs font-medium text-brand-800 hover:border-brand-500"
+                >
+                  + {f.title}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
         {selectedBrand && selectedBrand.faults.length > 0 && (
           <div>
             <p className="text-sm font-medium text-slate-700">
-              Sık karşılaşılan arızalardan seçebilirsiniz:
+              {selectedModel
+                ? `${selectedBrand.name} markasında genel görülen arızalar:`
+                : "Sık karşılaşılan arızalardan seçebilirsiniz:"}
             </p>
             <div className="mt-2 flex flex-wrap gap-2">
               {selectedBrand.faults.map((f) => (

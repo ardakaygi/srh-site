@@ -7,14 +7,17 @@
  * verified manufacturers (prisma/data/brands.ts) - not yet the full "70+"
  * MASTER_PROMPT.md target; reaching that requires a brand catalog verified
  * against the business's actual supplier/import list (backlog.md), which
- * this seed does not fabricate. Models remain a small curated set (5) —
- * see known-issues.md: fault text and model specs here are
- * commonly-published approximations and should be verified against
- * manufacturer spec sheets before this becomes real production copy.
+ * this seed does not fabricate. Models cover every brand except Grundig
+ * (prisma/data/models.ts - no confidently-verifiable model name found for
+ * it, see decisions.md) with at least one real, market-known model — see
+ * known-issues.md: fault text and model specs here are commonly-published
+ * approximations and should be verified against manufacturer spec sheets
+ * before this becomes real production copy.
  */
 import { PrismaClient } from "@prisma/client";
 import { PROVINCES } from "./data/provinces";
 import { EXTRA_BRANDS } from "./data/brands";
+import { EXTRA_MODELS } from "./data/models";
 
 const prisma = new PrismaClient();
 
@@ -199,13 +202,35 @@ async function main() {
     ],
   });
 
+  // EXTRA_MODELS references brands by slug (spans both the core brands
+  // created above and EXTRA_BRANDS) - resolve to ids via one bulk lookup
+  // rather than a query per model.
+  const allBrands = await prisma.brand.findMany({ select: { id: true, slug: true } });
+  const brandIdBySlug = new Map(allBrands.map((b) => [b.slug, b.id]));
+  await prisma.model.createMany({
+    data: EXTRA_MODELS.map((m) => {
+      const brandId = brandIdBySlug.get(m.brandSlug);
+      if (!brandId) {
+        throw new Error(`EXTRA_MODELS: unknown brandSlug "${m.brandSlug}" for model "${m.name}"`);
+      }
+      return {
+        brandId,
+        slug: m.slug,
+        name: m.name,
+        commonIssues: m.commonIssues,
+        partsNote: m.partsNote,
+      };
+    }),
+  });
+
   await prisma.province.createMany({ data: PROVINCES });
 
   const totalBrands = await prisma.brand.count();
+  const totalModels = await prisma.model.count();
   const totalProvinces = await prisma.province.count();
   console.log("Seed tamamlandı:", {
     brands: totalBrands,
-    models: 5,
+    models: totalModels,
     provinces: totalProvinces,
   });
 }

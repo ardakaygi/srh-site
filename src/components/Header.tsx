@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BrandsMegaMenu } from "@/components/BrandsMegaMenu";
 import { MobileNav } from "@/components/MobileNav";
+import { NavDropdown } from "@/components/NavDropdown";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { getAllBrands } from "@/lib/data";
 import { siteConfig } from "@/lib/site-config";
@@ -9,9 +10,13 @@ import { siteConfig } from "@/lib/site-config";
 const beforeBrandsNav = [
   { eyebrow: "81 İlde Hizmet", label: "Hizmet Bölgeleri", href: "/hizmet-bolgeleri" },
 ];
-const afterBrandsNav = [
-  { eyebrow: "Anlık Sorgulama", label: "Kargo Takip", href: "/servis-takip" },
-  { eyebrow: "Kurumsal", label: "Kurumsal", href: "/kurumsal" },
+const afterBrandsNav = [{ label: "Kargo Takip", href: "/servis-takip" }];
+
+const kurumsalDropdownItems = [
+  { href: "/kurumsal", label: "Hakkımızda" },
+  { href: "/blog", label: "Blog" },
+  { href: "/sss", label: "Sık Sorulan Sorular" },
+  { href: "/iletisim", label: "İletişim" },
 ];
 
 const POPULAR_BRAND_SLUGS = ["roborock", "xiaomi", "samsung", "dreame", "ecovacs", "irobot"];
@@ -102,15 +107,16 @@ export async function Header() {
           <BrandsMegaMenu popularBrands={popularBrands} otherBrands={otherBrands} />
 
           {afterBrandsNav.map((item) => (
-            <Link key={item.href} href={item.href} className="group leading-tight">
-              <span className="block text-[11px] font-semibold uppercase tracking-wide text-brand-600">
-                {item.eyebrow}
-              </span>
-              <span className="block text-sm font-semibold text-slate-800 group-hover:text-brand-700">
-                {item.label}
-              </span>
+            <Link
+              key={item.href}
+              href={item.href}
+              className="text-sm font-semibold text-slate-800 hover:text-brand-700"
+            >
+              {item.label}
             </Link>
           ))}
+
+          <NavDropdown label="Kurumsal" items={kurumsalDropdownItems} />
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">

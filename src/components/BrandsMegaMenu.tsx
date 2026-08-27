@@ -32,9 +32,6 @@ export function BrandsMegaMenu({
         aria-expanded={open}
         className="group leading-tight"
       >
-        <span className="block text-[11px] font-semibold uppercase tracking-wide text-brand-600">
-          29 Markada Uzmanız
-        </span>
         <span className="flex items-center gap-1 text-sm font-semibold text-slate-800 group-hover:text-brand-700">
           Markalar
           <svg viewBox="0 0 20 20" fill="currentColor" className={`h-3.5 w-3.5 transition-transform ${open ? "rotate-180" : ""}`}>

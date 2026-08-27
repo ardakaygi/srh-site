@@ -31,12 +31,12 @@ export function BrandsShowcase({ brands }: { brands: BrandView[] }) {
           {/* Left: popular brands with real logos */}
           <div className="rounded-2xl bg-white p-6 sm:p-8">
             <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">
-              Her Markaya Uzman Dokunuş
+              Marka Ayrımı Yapmadan Aynı Uzmanlık
             </h2>
             <p className="mt-3 text-sm text-slate-600 sm:text-base">
-              Robot süpürgelerde tüm marka ve modellere özel arıza tespiti,
-              onarım ve bakım hizmeti sunuyoruz. Aşağıdaki markaların tamamı
-              için profesyonel destek alabilirsiniz.
+              Hangi markaya ve modele sahip olursanız olun, arıza tespitinden
+              batarya yenilemeye kadar tüm teknik servis sürecini kendi
+              merkezimizde, uzman kadromuzla yürütüyoruz.
             </p>
 
             <div className="mt-7 flex items-start justify-between gap-4">

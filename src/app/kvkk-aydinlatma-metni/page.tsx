@@ -33,8 +33,9 @@ export default function KvkkPage() {
       <div className="prose prose-slate mt-6 max-w-none">
         <h2>1. Veri Sorumlusu</h2>
         <p>
-          [Veri sorumlusunun tam unvanı, adresi ve iletişim bilgileri
-          buraya eklenecektir — bkz. <code>site-config.ts</code>.]
+          Veri sorumlusu, {siteConfig.businessName} markasını işleten{" "}
+          {siteConfig.legalEntityName}&apos;dir. Adres: {siteConfig.address}.
+          Telefon: {siteConfig.phoneDisplay}.
         </p>
 
         <h2>2. İşlenen Kişisel Veriler</h2>
