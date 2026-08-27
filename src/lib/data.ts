@@ -115,6 +115,15 @@ export async function getModelBySlugs(
   return { ...row, commonIssues: JSON.parse(row.commonIssues) as FaultItem[] };
 }
 
+export async function getModelByFullSlug(
+  fullSlug: string,
+): Promise<ModelView | null> {
+  const all = await getAllModelsWithBrand();
+  return (
+    all.find((m) => `${m.brand.slug}-${m.slug}` === fullSlug) ?? null
+  );
+}
+
 export async function getAllModelsWithBrand(): Promise<ModelView[]> {
   const rows = await prisma.model.findMany({ include: { brand: true } });
   return rows.map((m) => ({
