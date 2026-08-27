@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BrandsShowcase } from "@/components/BrandsShowcase";
+import { GoogleReviewsSection } from "@/components/GoogleReviewsSection";
 import { ProvinceQuickSelect } from "@/components/ProvinceQuickSelect";
 import { ServiceCoverageMap } from "@/components/ServiceCoverageMap";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -382,6 +383,8 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      <GoogleReviewsSection />
 
       <section className="bg-brand-800 px-4 py-14 text-center text-white">
         <div className="mx-auto max-w-2xl">
