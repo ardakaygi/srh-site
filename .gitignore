@@ -30,8 +30,10 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files (.env.example documents the required keys with no real
+# secrets, so it's tracked on purpose - never remove this exception)
 .env*
+!.env.example
 
 # local SQLite dev database
 /prisma/*.db

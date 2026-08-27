@@ -4,7 +4,9 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getCarrierProvider } from "@/lib/carrier";
 import { generateTrackingCode } from "@/lib/tracking";
-import { normalizePhone } from "@/lib/phone";
+import { normalizePhone, toTrMsisdn } from "@/lib/phone";
+import { getSmsProvider } from "@/lib/sms";
+import { siteConfig } from "@/lib/site-config";
 
 const ServiceRequestSchema = z.object({
   brandId: z.string().min(1, "Lütfen bir marka seçin."),
@@ -96,6 +98,24 @@ export async function submitServiceRequest(
       },
     },
   });
+
+  // Best-effort tracking-code SMS - same non-blocking pattern as the
+  // carrier call below. A failed/unconfigured SMS provider must not stop
+  // the customer from getting their trackingCode back in the UI response.
+  const msisdn = toTrMsisdn(data.customerPhone);
+  if (msisdn) {
+    try {
+      await getSmsProvider().sendSms(
+        msisdn,
+        `${siteConfig.businessName}: Servis talebiniz alındı. Takip kodunuz: ${trackingCode}. Sorgulama: ${siteConfig.siteUrl}/servis-takip`,
+      );
+    } catch (err) {
+      console.error(
+        `SMS gönderimi başarısız oldu (servis talebi ${serviceRequest.id}, takip kodu ${trackingCode})`,
+        err,
+      );
+    }
+  }
 
   // The request row (and its trackingCode) is already committed at this
   // point. A carrier-side failure must not stop the customer from receiving
