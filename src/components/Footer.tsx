@@ -28,11 +28,12 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <h3 className="text-sm font-semibold text-white">Yasal</h3>
+          <h3 className="text-sm font-semibold text-white">Kurumsal</h3>
           <ul className="mt-2 space-y-1 text-sm">
+            <li><Link href="/kurumsal" className="hover:text-white">Hakkımızda</Link></li>
+            <li><Link href="/iletisim" className="hover:text-white">İletişim</Link></li>
             <li><Link href="/kvkk-aydinlatma-metni" className="hover:text-white">KVKK Aydınlatma Metni</Link></li>
             <li><Link href="/cerez-politikasi" className="hover:text-white">Çerez Politikası</Link></li>
-            <li><Link href="/iletisim" className="hover:text-white">İletişim</Link></li>
           </ul>
         </div>
       </div>

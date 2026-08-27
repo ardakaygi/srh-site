@@ -19,6 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteConfig.siteUrl}/servis-talep`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteConfig.siteUrl}/servis-takip`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${siteConfig.siteUrl}/atolye`, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${siteConfig.siteUrl}/kurumsal`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${siteConfig.siteUrl}/iletisim`, changeFrequency: "yearly", priority: 0.4 },
     { url: `${siteConfig.siteUrl}/kvkk-aydinlatma-metni`, changeFrequency: "yearly", priority: 0.2 },
     { url: `${siteConfig.siteUrl}/cerez-politikasi`, changeFrequency: "yearly", priority: 0.2 },

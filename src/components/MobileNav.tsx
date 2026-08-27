@@ -10,7 +10,8 @@ const navLinks = [
   { href: "/markalar", label: "Markalar" },
   { href: "/servis-talep", label: "Servis Talebi Oluştur" },
   { href: "/servis-takip", label: "Kargo Takip" },
-  { href: "/iletisim", label: "Kurumsal" },
+  { href: "/kurumsal", label: "Kurumsal" },
+  { href: "/iletisim", label: "İletişim" },
 ];
 
 export function MobileNav() {

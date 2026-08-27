@@ -11,7 +11,7 @@ const beforeBrandsNav = [
 ];
 const afterBrandsNav = [
   { eyebrow: "Anlık Sorgulama", label: "Kargo Takip", href: "/servis-takip" },
-  { eyebrow: "Kurumsal", label: "Kurumsal", href: "/iletisim" },
+  { eyebrow: "Kurumsal", label: "Kurumsal", href: "/kurumsal" },
 ];
 
 const POPULAR_BRAND_SLUGS = ["roborock", "xiaomi", "samsung", "dreame", "ecovacs", "irobot"];
