@@ -39,3 +39,21 @@ npm run test      # 11 passed (11)
 5. Playwright ile 6 yeni sayfa (2 il çifti aynı bölgeden, 2 farklı bölgeden il, 2 yeni marka) ziyaret edildi, ekran görüntüleriyle gerçek içerik farklılaşması doğrulandı (Van: kış/batarya teması, Mardin: sıcaklık teması — farklı; Mardin/Şanlıurfa aynı bölge, benzer ama il adı + hesaplanan süre farklı)
 
 **Sıradaki adım:** `backlog.md`'deki kalan işler — model kapsamının genişletilmesi, gerçek marka kataloğu ile 70+ hedefine ulaşma, entegrasyonlar (kargo/analytics), hukuki onaylar.
+
+## 2026-08-27 (devam) — Marka kimliği ve UX yenileme
+
+Kullanıcının Desktop'taki `logo.pdf` dosyası ve üç referans görsel (`siteorn1.png`, `hizmetorn.png`, `headerorn.png`, `popuporn.png`) temel alınarak sitenin görsel kimliği baştan tasarlandı.
+
+**Tamamlanan:**
+1. Vektör logo `logo.pdf`'ten çıkarıldı (`public/logo.svg`, favicon `src/app/icon.svg`), tema rengi logonun kendi hex değerlerinden (`#005e97`/`#003b64`) türetildi.
+2. Gerçek bir dark-mode CSS bug'ı bulunup düzeltildi (scaffold'un katmansız `body{}` kuralı, karanlık OS temasında arka plansız kartları siyaha çeviriyordu).
+3. Hero bölümü tamamen yenilendi: iki kolon, dönen arıza ifadesi başlığı (CSS grid-stacking, JS'siz), lisanslı ürün fotoğrafı (Pexels), yüzen özellik kartları.
+4. Teknik Servis Kapsamımız bölümü ikon+checklist+CTA formatına geçirildi, 12 kategori özgün metinle yeniden yazıldı.
+5. Header iki katmanlı yapıya (üst bilgi çubuğu + ana menü) geçirildi, gerçek marka logolu bir "Markalar" mega menüsü eklendi (6 marka logosu Wikimedia Commons'tan, lisansları `decisions.md`'de belgelendi; Dreame için CC BY-SA atfı footer'a eklendi).
+6. **Kritik mobil hatalar bulunup düzeltildi:** (a) Header'da mobilde hiç nav linki yoktu — hamburger menü eklendi; (b) dönen başlık metni mobilde tüm sayfayı yatay taşırıyordu (nowrap + dar max-width) — CSS grid-stacking + koşullu wrap ile düzeltildi.
+7. Anasayfadaki marka/il listeleri artık 6'şar öğelik küratörlü önizleme gösteriyor (tam liste `/markalar` ve `/hizmet-bolgeleri`'de) — önceki hâliyle sayfa mobilde ~13.600px uzunluğundaydı.
+8. Gerçek işletme bilgileri onaylandı: telefon (0362 431 19 19), 6 ay garanti — `site-config.ts` güncellendi.
+
+**Kanıt:** Her değişiklikten sonra `npm run build && npm run lint && npm run typecheck` çalıştırıldı (hepsi temiz), oturum sonunda tam Playwright e2e testi tekrar koşuldu (ana akış hâlâ çalışıyor), masaüstü (1440px) ve mobil (375-390px) genişliklerde ekran görüntüleriyle görsel doğrulama yapıldı.
+
+**Sıradaki adım:** `backlog.md`'deki kalan işler değişmedi (model kapsamı, 70+ marka kataloğu, entegrasyonlar, hukuki onaylar).

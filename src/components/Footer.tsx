@@ -38,6 +38,19 @@ export function Footer() {
       </div>
       <div className="border-t border-white/10 px-4 py-4 text-center text-xs text-slate-500">
         © {new Date().getFullYear()} {siteConfig.businessName}. Tüm hakları saklıdır.
+        {" · "}
+        Dreame logosu{" "}
+        <a
+          href="https://commons.wikimedia.org/wiki/File:Logo_of_Dreame.svg"
+          className="underline hover:text-slate-300"
+        >
+          Wikimedia Commons
+        </a>{" "}
+        (CC BY-SA 4.0, Dreame Technology) kaynaklıdır. Sitede görülen tüm
+        marka isim ve logoları ilgili marka sahiplerine aittir; bu sayfada
+        yalnızca hizmet verilen markaların tanıtımı amacıyla, marka
+        sahipleriyle herhangi bir bağlantı veya yetkili servis ilişkisi
+        iddia edilmeden kullanılmaktadır.
       </div>
     </footer>
   );
