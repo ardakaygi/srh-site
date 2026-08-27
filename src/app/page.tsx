@@ -1,69 +1,151 @@
-import Image from "next/image";
+import Link from "next/link";
+import { TrustBadges } from "@/components/TrustBadges";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { getAllBrands, getAllProvinces } from "@/lib/data";
+import { siteConfig } from "@/lib/site-config";
 
-export default function Home() {
+export const revalidate = 3600;
+
+const serviceCategories = [
+  { title: "Batarya Değişimi", description: "Orijinal hücrelerle spot kaynaklı özel batarya paketi üretimi ve değişimi." },
+  { title: "Anakart Onarımı", description: "Mikro lehim seviyesinde elektronik kart tamiri." },
+  { title: "LiDAR Sensör Kalibrasyonu", description: "Haritalama ve navigasyon sensörlerinin bakımı, kalibrasyonu ve değişimi." },
+  { title: "Haritalama Sorunları", description: "Robotun oda karıştırması, tekrar süpürmesi gibi navigasyon problemlerinin çözümü." },
+  { title: "Şarj / Dock Sorunları", description: "Şarj istasyonuna gidememe, temas kaybı ve şarj devresi arızaları." },
+  { title: "Motor Değişimi", description: "Fırça, tekerlek ve fan motorlarının tamiri ve değişimi." },
+  { title: "Yazılım Güncelleme", description: "Firmware güncellemeleri ve uygulama bağlantı sorunlarının giderilmesi." },
+  { title: "Mop / Su Sistemi", description: "Paspaslama pompası, su haznesi ve valf arızalarının onarımı." },
+  { title: "Fan / Emiş Gücü", description: "Düşen emiş performansının kaynağının tespiti ve giderilmesi." },
+  { title: "Toz Haznesi / Sensörler", description: "Toz haznesi dolu sensörü ve otomatik boşaltma istasyonu arızaları." },
+  { title: "Wi-Fi ve Kamera Kalibrasyonu", description: "Bağlantı ve görüntü tabanlı navigasyon sensörü sorunları." },
+];
+
+export default async function HomePage() {
+  const [brands, provinces] = await Promise.all([
+    getAllBrands(),
+    getAllProvinces(),
+  ]);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <div>
+      <section className="bg-gradient-to-b from-emerald-50 to-white px-4 py-16 text-center">
+        <div className="mx-auto max-w-3xl">
+          <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">
+            Robot Süpürgeniz İçin Uzman Dokunuş
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mt-4 text-lg text-slate-600">
+            Samsun merkezli atölyemizden Türkiye&apos;nin 81 iline; tüm robot
+            süpürge markalarında arıza tespiti, onarım, yedek parça ve özel
+            batarya yenileme hizmeti sunuyoruz.
           </p>
+          <div className="mt-6">
+            <TrustBadges />
+          </div>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Link
+              href="/servis-talep"
+              className="rounded-full bg-emerald-700 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-emerald-800"
+            >
+              Servis Talebi Oluştur
+            </Link>
+            <WhatsAppButton
+              message="Merhaba, robot süpürgem için servis talebinde bulunmak istiyorum."
+              className="rounded-full border border-emerald-700 px-6 py-3 text-sm font-semibold text-emerald-800 transition-colors hover:bg-emerald-50"
+            >
+              WhatsApp ile Destek Al
+            </WhatsAppButton>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-14">
+        <h2 className="text-center text-2xl font-bold text-slate-900">
+          Teknik Servis Kapsamımız
+        </h2>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {serviceCategories.map((service) => (
+            <div
+              key={service.title}
+              className="rounded-xl border border-slate-200 p-5"
+            >
+              <h3 className="font-semibold text-slate-900">{service.title}</h3>
+              <p className="mt-1.5 text-sm text-slate-600">
+                {service.description}
+              </p>
+            </div>
+          ))}
         </div>
-      </main>
+      </section>
+
+      <section className="bg-slate-50 px-4 py-14">
+        <div className="mx-auto max-w-6xl">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-slate-900">
+              Hizmet Verdiğimiz Markalar
+            </h2>
+            <Link
+              href="/markalar"
+              className="text-sm font-semibold text-emerald-700 hover:underline"
+            >
+              Tümünü Gör →
+            </Link>
+          </div>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {brands.map((brand) => (
+              <Link
+                key={brand.id}
+                href={`/${brand.slug}-robot-supurge-servisi`}
+                className="rounded-xl border border-slate-200 bg-white p-4 font-semibold text-slate-800 transition-colors hover:border-emerald-400 hover:text-emerald-800"
+              >
+                {brand.name} Robot Süpürge Servisi
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-14">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-slate-900">
+            Hizmet Bölgeleri
+          </h2>
+          <Link
+            href="/hizmet-bolgeleri"
+            className="text-sm font-semibold text-emerald-700 hover:underline"
+          >
+            81 İli Gör →
+          </Link>
+        </div>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {provinces.map((province) => (
+            <Link
+              key={province.id}
+              href={`/${province.slug}-robot-supurge-servisi`}
+              className="rounded-xl border border-slate-200 p-4 font-semibold text-slate-800 transition-colors hover:border-emerald-400 hover:text-emerald-800"
+            >
+              {province.name} Robot Süpürge Servisi
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-emerald-800 px-4 py-14 text-center text-white">
+        <div className="mx-auto max-w-2xl">
+          <h2 className="text-2xl font-bold">
+            {siteConfig.businessName} Farkını Yaşayın
+          </h2>
+          <p className="mt-3 text-emerald-50">
+            Cihazınızı adresinizden gönderin, ücretsiz arıza tespiti sonrası
+            onayınızı alarak onarıma başlayalım.
+          </p>
+          <Link
+            href="/servis-talep"
+            className="mt-6 inline-block rounded-full bg-white px-6 py-3 text-sm font-semibold text-emerald-800 transition-colors hover:bg-emerald-50"
+          >
+            Hemen Servis Talebi Oluştur
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }
