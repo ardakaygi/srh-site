@@ -1,0 +1,110 @@
+// Prisma schema for Samsun Robot Hastanesi.
+//
+// Dev datasource is SQLite (zero-config, file-based) so the project runs
+// without a provisioned Postgres server. Swap `provider`/`url` to postgresql
+// before production deployment — see MASTER_PROMPT.md §3 (this is a
+// low-stakes, swappable default, not an architectural decision).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// A Turkish province (il). One row -> one programmatic SEO landing page
+// at /[slug]-robot-supurge-servisi.
+model Province {
+  id                String   @id @default(cuid())
+  slug              String   @unique // e.g. "samsun"
+  name              String // e.g. "Samsun"
+  plateCode         String   @unique // e.g. "55"
+  region            String // e.g. "Karadeniz" - used for nearby-province linking
+  leadTimeLabel     String // e.g. "1-2 iş günü" - realistic bucketed estimate, not fabricated precision
+  regionalIntro     String // genuinely regional paragraph (climate/usage angle) - must not be a template
+  topBrandSlugs     String // JSON-encoded string[] of 3-5 Brand.slug most requested from this region
+  faqJson           String // JSON-encoded {question, answer}[] - province-specific, not copy-pasted everywhere
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  serviceRequests ServiceRequest[]
+}
+
+// A robot vacuum brand. One row -> one programmatic SEO landing page
+// at /[slug]-robot-supurge-servisi.
+model Brand {
+  id          String   @id @default(cuid())
+  slug        String   @unique // e.g. "roborock"
+  name        String // e.g. "Roborock"
+  intro       String // brand-specific value proposition paragraph
+  faultsJson  String // JSON-encoded {title, description}[] - brand-differentiated common faults
+  faqJson     String // JSON-encoded {question, answer}[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  models          Model[]
+  serviceRequests ServiceRequest[]
+}
+
+// A specific model of a brand. One row -> one micro-landing page
+// at /model/[brandSlug]-[modelSlug].
+model Model {
+  id            String   @id @default(cuid())
+  brandId       String
+  brand         Brand    @relation(fields: [brandId], references: [id])
+  slug          String // e.g. "s7" - unique within a brand, combined as brandSlug-modelSlug in the URL
+  name          String // e.g. "Roborock S7"
+  suctionPa     Int? // suction power, Pascals - nullable, not every model has published specs
+  batteryMah    Int?
+  runtimeMin    Int?
+  commonIssues  String // JSON-encoded {title, description}[] - model-specific, distinct from the brand page's list
+  partsNote     String // spare parts / battery options blurb specific to this model
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([brandId, slug])
+}
+
+enum ServiceRequestStatus {
+  RECEIVED
+  DIAGNOSED
+  REPAIRING
+  TESTING
+  SHIPPED
+  DELIVERED
+}
+
+// A customer's service request, created via the multi-step form.
+model ServiceRequest {
+  id              String               @id @default(cuid())
+  trackingCode    String               @unique // shown to the customer for /servis-takip lookups
+  brandId         String
+  brand           Brand                @relation(fields: [brandId], references: [id])
+  modelName       String? // free-text fallback if the exact model isn't in the Model table
+  faultDescription String
+  customerName    String
+  customerPhone   String
+  provinceId      String
+  province        Province             @relation(fields: [provinceId], references: [id])
+  addressLine     String
+  kvkkConsent     Boolean              @default(false) // must be explicitly true at submit time - never pre-checked in the UI
+  status          ServiceRequestStatus @default(RECEIVED)
+  carrierName     String? // set once a CarrierProvider shipment is created - which carrier is not yet decided (MASTER_PROMPT.md §4)
+  carrierTrackingUrl String?
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+
+  statusEvents ServiceRequestStatusEvent[]
+}
+
+// Append-only status history so /servis-takip can show a timeline, not just current status.
+model ServiceRequestStatusEvent {
+  id               String               @id @default(cuid())
+  serviceRequestId String
+  serviceRequest   ServiceRequest       @relation(fields: [serviceRequestId], references: [id])
+  status           ServiceRequestStatus
+  note             String? // Turkish, customer-facing note for this status change
+  createdAt        DateTime             @default(now())
+}
