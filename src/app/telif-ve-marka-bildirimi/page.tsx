@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { BRAND_LOGO_MAP } from "@/lib/brandLogos";
 import { getAllBrands } from "@/lib/data";
+import { PROVINCE_LANDMARKS } from "@/lib/provinceLandmarks";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -135,6 +136,23 @@ export default async function TelifVeMarkaBildirimiPage() {
           tarafından hazırlanmış olup CC BY-SA 3.0 lisansı altında
           kullanılmaktadır.
         </p>
+
+        <h2>İl Sayfası Fotoğrafları</h2>
+        <p>
+          Bazı il sayfalarında, o ile özgü gerçek bir simge yapı/anıt
+          fotoğrafı gösterilmektedir. Tamamı Wikimedia Commons kaynaklı ve
+          lisansı doğrulanmıştır:
+        </p>
+        <ul className="not-prose mt-4 grid gap-2 text-sm text-slate-600 sm:grid-cols-2">
+          {Object.entries(PROVINCE_LANDMARKS).map(([slug, landmark]) => (
+            <li key={slug} className="rounded-lg border border-slate-200 p-3">
+              <span className="block font-semibold text-slate-800">
+                {landmark.alt}
+              </span>
+              {landmark.credit}
+            </li>
+          ))}
+        </ul>
 
         <h2>Ürün Fotoğrafı</h2>
         <p>

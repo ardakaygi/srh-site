@@ -301,7 +301,7 @@ export const EXTRA_BRANDS: BrandSeed[] = [
       { title: "Fırça motoru arızası", description: "Ana fırça motorunun aşınması emiş performansını düşürür." },
       { title: "Batarya değişimi", description: "Orijinal eşdeğeri batarya paketiyle değişim yapıyoruz." },
     ]),
-    faqJson: JSON.stringify([{ question: "Miele Scout RX modelim premium bir cihaz, hassas onarım yapabiliyor musunuz?", answer: "Evet, atölyemizde mikro lehim seviyesinde hassas elektronik onarım kapasitemiz var." }]),
+    faqJson: JSON.stringify([{ question: "Miele Scout RX modelim premium bir cihaz, hassas onarım yapabiliyor musunuz?", answer: "Evet, merkezimizde mikro lehim seviyesinde hassas elektronik onarım kapasitemiz var." }]),
   },
   {
     slug: "vorwerk",

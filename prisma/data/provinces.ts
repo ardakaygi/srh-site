@@ -128,7 +128,7 @@ const REGION_META: Record<
   Karadeniz: {
     leadTimeLabel: "1 iş günü",
     intro: (il) =>
-      `${il}, Samsun'daki merkez atölyemize coğrafi yakınlığı sayesinde Karadeniz hattındaki en hızlı servis sürelerinden birine sahiptir. Bölgenin yüksek nem oranı robot süpürgelerde sensör ve tekerlek bölgesinde nem birikmesine yol açabildiğinden, periyodik bakım özellikle önemlidir.`,
+      `${il}, Samsun'daki merkezimize coğrafi yakınlığı sayesinde Karadeniz hattındaki en hızlı servis sürelerinden birine sahiptir. Bölgenin yüksek nem oranı robot süpürgelerde sensör ve tekerlek bölgesinde nem birikmesine yol açabildiğinden, periyodik bakım özellikle önemlidir.`,
     faq2: (il) => ({
       question: `${il}'de nem nedeniyle ekstra bir kontrol yapıyor musunuz?`,
       answer:
@@ -139,7 +139,7 @@ const REGION_META: Record<
   Marmara: {
     leadTimeLabel: "1-2 iş günü",
     intro: (il) =>
-      `${il}'in yoğun kentsel kullanım yoğunluğu ve halı/parke karışık zemin yapısı, robot süpürgelerde fırça ve tekerlek aşınmasını hızlandırabilir. ${il}'den gelen cihazlar anlaşmalı kargo ile 1-2 iş günü içinde atölyemize ulaşır.`,
+      `${il}'in yoğun kentsel kullanım yoğunluğu ve halı/parke karışık zemin yapısı, robot süpürgelerde fırça ve tekerlek aşınmasını hızlandırabilir. ${il}'den gelen cihazlar anlaşmalı kargo ile 1-2 iş günü içinde merkezimize ulaşır.`,
     faq2: (il) => ({
       question: `${il}'de yoğun kullanım nedeniyle fırça/tekerlek kontrolü yapıyor musunuz?`,
       answer:
@@ -242,10 +242,10 @@ export const PROVINCES: ProvinceSeed[] = PROVINCE_TABLE.map((row) => {
     plateCode: row.code,
     region: row.region,
     leadTimeLabel: isHomeBase
-      ? "Aynı gün / 1 iş günü (merkez atölye)"
+      ? "Aynı gün / 1 iş günü (merkezimiz Samsun'da)"
       : meta.leadTimeLabel,
     regionalIntro: isHomeBase
-      ? "Samsun Robot Hastanesi'nin merkez atölyesi Samsun'da bulunduğu için şehir içi taleplerde aynı gün adresten teslim alma ve hızlı arıza tespiti mümkündür. Karadeniz'in nemli iklimi robot süpürgelerde sensör ve tekerlek bölgesinde nem birikmesine yol açabildiğinden, periyodik bakım özellikle önemlidir."
+      ? "Samsun Robot Hastanesi'nin merkezi Samsun'da bulunduğu için şehir içi taleplerde aynı gün adresten teslim alma ve hızlı arıza tespiti mümkündür. Karadeniz'in nemli iklimi robot süpürgelerde sensör ve tekerlek bölgesinde nem birikmesine yol açabildiğinden, periyodik bakım özellikle önemlidir."
       : meta.intro(row.name),
     topBrandSlugs: JSON.stringify(meta.topBrandSlugs),
     faqJson: JSON.stringify([shippingFaq(row.name, isHomeBase), meta.faq2(row.name)]),

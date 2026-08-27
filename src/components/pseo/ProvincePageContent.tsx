@@ -1,8 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { TrustBadges } from "@/components/TrustBadges";
 import { JsonLd } from "@/components/JsonLd";
 import { getBrandsBySlugs, getNearbyProvinces, type ProvinceView } from "@/lib/data";
+import { PROVINCE_LANDMARKS } from "@/lib/provinceLandmarks";
 import { faqPageNode, localBusinessNode, serviceNode } from "@/lib/schema";
 import { ilMarkaSlug } from "@/lib/slugs";
 
@@ -23,6 +25,7 @@ export async function ProvincePageContent({
     getBrandsBySlugs(province.topBrandSlugs),
     getNearbyProvinces(province.region, province.slug),
   ]);
+  const landmark = PROVINCE_LANDMARKS[province.slug];
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -48,27 +51,46 @@ export async function ProvincePageContent({
         ]}
       />
 
-      <h1 className="mt-4 text-3xl font-bold text-slate-900">
-        {province.name} Robot Süpürge Servisi
-      </h1>
-      <p className="mt-2 text-sm font-medium text-brand-700">
-        Tahmini kargo/teslimat süresi: {province.leadTimeLabel}
-      </p>
-      <div className="mt-4">
-        <TrustBadges />
-      </div>
+      <div className={landmark ? "grid gap-8 lg:grid-cols-[1.3fr_1fr] lg:items-start" : undefined}>
+        <div>
+          <h1 className="mt-4 text-3xl font-bold text-slate-900">
+            {province.name} Robot Süpürge Servisi
+          </h1>
+          <p className="mt-2 text-sm font-medium text-brand-700">
+            Tahmini kargo/teslimat süresi: {province.leadTimeLabel}
+          </p>
+          <div className="mt-4">
+            <TrustBadges />
+          </div>
 
-      <p className="mt-6 leading-relaxed text-slate-700">
-        {province.regionalIntro}
-      </p>
+          <p className="mt-6 leading-relaxed text-slate-700">
+            {province.regionalIntro}
+          </p>
 
-      <div className="mt-8 flex flex-wrap gap-3">
-        <Link
-          href="/servis-talep"
-          className="rounded-full bg-brand-700 px-6 py-3 text-sm font-semibold text-white hover:bg-brand-800"
-        >
-          {province.name} İçin Servis Talebi Oluştur
-        </Link>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href="/servis-talep"
+              className="rounded-full bg-brand-700 px-6 py-3 text-sm font-semibold text-white hover:bg-brand-800"
+            >
+              {province.name} İçin Servis Talebi Oluştur
+            </Link>
+          </div>
+        </div>
+
+        {landmark && (
+          <div className="mt-4 lg:mt-4">
+            <div className="overflow-hidden rounded-2xl shadow-md">
+              <Image
+                src={landmark.src}
+                alt={landmark.alt}
+                width={700}
+                height={933}
+                className="aspect-[3/4] w-full object-cover"
+              />
+            </div>
+            <p className="mt-2 text-xs text-slate-400">{landmark.credit}</p>
+          </div>
+        )}
       </div>
 
       <section className="mt-12">
