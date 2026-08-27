@@ -27,4 +27,15 @@ npm run test      # 11 passed (11)
 
 **Kanıt:** `npm run build && npm run lint && npm run typecheck && npm run test` düzeltmelerden sonra tekrar çalıştırıldı, hepsi temiz. Hedefli bir Playwright script'i (`verify_fix.py`) 4 senaryoyu doğruladı: takip kodu sorgusu çalışıyor; sadece telefonla sorgu veri sızdırmıyor; yanlış isim+telefon veri sızdırmıyor; doğru isim + farklı formatlı telefon isteği buluyor.
 
-**Sıradaki adım:** `backlog.md`'deki içerik ölçeklendirme ve entegrasyon işleri.
+**Sıradaki adım (bu oturumda tamamlandı):** İçerik ölçeklendirme.
+
+## 2026-08-27 (devam) — İçerik ölçeklendirme: 81 il + 29 marka
+
+**Tamamlanan:**
+1. `prisma/data/provinces.ts` — resmi plaka kodu + 7 coğrafi bölge tablosuyla **tüm 81 il**, bölge bazlı gerçek iklim/kullanım farklılaştırmasıyla (bkz. `known-issues.md` — bölge seviyesinde farklılaşma, şehir seviyesinde değil)
+2. `prisma/data/brands.ts` — 23 yeni, gerçek/doğrulanmış marka (toplam 29)
+3. `seed.ts` güncellendi, bu iki dosyadan besleniyor
+4. **Kanıt:** `npx tsx prisma/seed.ts` → `{brands: 29, models: 5, provinces: 81}`; `npm run build` → 129 sayfa, 3.8sn'de statik üretildi, hata yok; `npm run lint && npm run typecheck && npm run test` → hepsi temiz (11/11 test)
+5. Playwright ile 6 yeni sayfa (2 il çifti aynı bölgeden, 2 farklı bölgeden il, 2 yeni marka) ziyaret edildi, ekran görüntüleriyle gerçek içerik farklılaşması doğrulandı (Van: kış/batarya teması, Mardin: sıcaklık teması — farklı; Mardin/Şanlıurfa aynı bölge, benzer ama il adı + hesaplanan süre farklı)
+
+**Sıradaki adım:** `backlog.md`'deki kalan işler — model kapsamının genişletilmesi, gerçek marka kataloğu ile 70+ hedefine ulaşma, entegrasyonlar (kargo/analytics), hukuki onaylar.

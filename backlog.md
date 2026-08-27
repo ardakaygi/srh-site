@@ -1,10 +1,11 @@
 # Backlog
 
-## Sıradaki büyük iş: içerik ölçeklendirme
+## İçerik ölçeklendirme (2026-08-27 güncellemesi: il tarafı tamamlandı)
 
-- [ ] Kalan ~76 il için gerçek, özgün bölgesel içerik (şablon tekrarı olmadan — bkz. `MASTER_PROMPT.md` §5.1 thin-content uyarısı)
-- [ ] Kalan ~64 marka için içerik
-- [ ] Marka başına model sayısının genişletilmesi
+- [x] ~~81 il için içerik~~ — **tamamlandı.** `prisma/data/provinces.ts`: tüm 81 il, resmi plaka kodu + 7 coğrafi bölge, bölge bazlı gerçek iklim/kullanım farklılaştırmasıyla. Not: farklılaştırma **bölge seviyesinde** (7 farklı anlatı × il adı + hesaplanan teslimat süresi), tam anlamıyla şehir-bazlı özgün metin değil — bkz. `known-issues.md`.
+- [x] ~~6→70+ marka~~ — **kısmen tamamlandı: 29 marka.** `prisma/data/brands.ts`: 23 yeni, gerçek/doğrulanmış marka (TCL, Anker Eufy, Narwal, Cecotec, Proscenic, Samsung, Philips, Karcher, Roidmi, Viomi, Hoover, Panasonic, Midea, Tefal, Rowenta, Shark, Grundig, Neabot, MOVA, Lefant, ILIFE, Miele, Vorwerk). **70+ hedefine ulaşmak için** işletmenin gerçek tedarikçi/ithalatçı kataloğu gerekiyor — bunu fabrikasyon yapmadım, veri kaynağı doğrulanmadan yeni marka eklemeyin.
+- [ ] Marka başına model sayısının genişletilmesi (şu an sadece 3 marka için toplam 5 model var; 29 markanın çoğunda henüz model mikro-sayfası yok)
+- [ ] İl bazlı "en çok talep edilen markalar" listesinin gerçek servis talebi verisine dayandırılması (şu an editöryel/bölgesel tahmine dayalı)
 
 ## Entegrasyonlar
 

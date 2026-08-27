@@ -4,8 +4,8 @@ Kaynak: [`MASTER_PROMPT.md`](./MASTER_PROMPT.md) (tam spesifikasyon). Bu dosya, 
 
 ## İlk Milestone — Definition of Done (MASTER_PROMPT.md §12)
 
-- [x] Homepage, ≥3 gerçek il sayfası, ≥3 gerçek marka sayfası, ≥2 model sayfası canlı ve thin-content kontrolünden geçiyor (5 il, 6 marka, 5 model; her sayfa bölgeye/markaya özgü gerçek metin içeriyor, şablon tekrarı yok)
-- [x] 81 il ve 70+ marka için tam veri modeli hazır (Prisma şeması), mimari tasarım yeniden yapılandırma gerektirmeden tam ölçeğe destekliyor (içerik girişi ayrı iş — bkz. `backlog.md`)
+- [x] Homepage, ≥3 gerçek il sayfası, ≥3 gerçek marka sayfası, ≥2 model sayfası canlı ve thin-content kontrolünden geçiyor — **güncelleme:** artık 81 il (tam kapsama) + 29 marka (kısmi kapsama) + 5 model canlı; her sayfa bölgeye/markaya özgü gerçek metin içeriyor
+- [x] 81 il için tam veri modeli **ve tam içerik** hazır. Marka tarafında 70+ hedefinin 29'u gerçek, doğrulanmış markalarla dolduruldu (kalan kısım gerçek tedarikçi/ithalatçı kataloğu gerektiriyor — bkz. `backlog.md`)
 - [x] Servis talebi çok adımlı formu uçtan uca çalışıyor, KVKK rızası zorunlu, temel WCAG kontrol edildi (etiketler, `autocomplete`, hata mesajları)
 - [x] Takip sayfası en az bir stub `CarrierProvider`'a karşı çalışıyor
 - [x] Schema.org işaretlemesi her sayfa tipinde mevcut (LocalBusiness+Service+FAQPage+BreadcrumbList) — Google Rich Results Test ile **doğrulanmadı** (elle test edilmedi, sadece yapısal olarak doğru JSON üretildiği teyit edildi)
