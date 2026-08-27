@@ -23,6 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteConfig.siteUrl}/iletisim`, changeFrequency: "yearly", priority: 0.4 },
     { url: `${siteConfig.siteUrl}/kvkk-aydinlatma-metni`, changeFrequency: "yearly", priority: 0.2 },
     { url: `${siteConfig.siteUrl}/cerez-politikasi`, changeFrequency: "yearly", priority: 0.2 },
+    { url: `${siteConfig.siteUrl}/telif-ve-marka-bildirimi`, changeFrequency: "yearly", priority: 0.2 },
   ];
 
   const provinceRoutes: MetadataRoute.Sitemap = provinces.map((p) => ({

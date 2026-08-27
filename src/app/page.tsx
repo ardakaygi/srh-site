@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+import { BrandsShowcase } from "@/components/BrandsShowcase";
 import { ProvinceQuickSelect } from "@/components/ProvinceQuickSelect";
 import { ServiceCoverageMap } from "@/components/ServiceCoverageMap";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { getAllBrands, getAllProvinces } from "@/lib/data";
 import { siteConfig } from "@/lib/site-config";
-import { ilMarkaSlug } from "@/lib/slugs";
 import {
   BatteryIcon,
   CameraIcon,
@@ -168,24 +168,11 @@ const serviceCategories = [
   },
 ];
 
-// Homepage shows a curated preview, not the full catalog (81 il / 29 marka
-// would make the homepage extremely long, especially on mobile - the full
-// lists already live at /hizmet-bolgeleri and /markalar). Well-known
-// entries are picked so the preview looks intentional, not arbitrary.
-const HOMEPAGE_BRAND_SLUGS = ["roborock", "xiaomi", "dreame", "ecovacs", "irobot", "dyson"];
-
-function curatedPreview<T extends { slug: string }>(items: T[], slugOrder: string[]): T[] {
-  const bySlug = new Map(items.map((item) => [item.slug, item]));
-  const picked = slugOrder.map((slug) => bySlug.get(slug)).filter((item): item is T => Boolean(item));
-  return picked.length > 0 ? picked : items.slice(0, 6);
-}
-
 export default async function HomePage() {
   const [allBrands, allProvinces] = await Promise.all([
     getAllBrands(),
     getAllProvinces(),
   ]);
-  const brands = curatedPreview(allBrands, HOMEPAGE_BRAND_SLUGS);
 
   return (
     <div>
@@ -338,32 +325,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-slate-50 px-4 py-14">
-        <div className="mx-auto max-w-6xl">
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-slate-900">
-              Hizmet Verdiğimiz Markalar
-            </h2>
-            <Link
-              href="/markalar"
-              className="text-sm font-semibold text-brand-700 hover:underline"
-            >
-              Tümünü Gör →
-            </Link>
-          </div>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {brands.map((brand) => (
-              <Link
-                key={brand.id}
-                href={`/${ilMarkaSlug(brand.slug)}`}
-                className="rounded-xl border border-slate-200 bg-white p-4 font-semibold text-slate-800 transition-colors hover:border-brand-400 hover:text-brand-800"
-              >
-                {brand.name} Robot Süpürge Servisi
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <BrandsShowcase brands={allBrands} />
 
       <section className="overflow-hidden bg-slate-50 px-4 py-16">
         <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-2">

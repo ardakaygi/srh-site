@@ -13,10 +13,10 @@ export const siteConfig = {
   phoneHref: "tel:+903624311919",
   // TODO(confirm-before-launch): real WhatsApp business number, E.164 format, no leading +.
   whatsappNumber: "90XXXXXXXXXX",
-  // TODO(confirm-before-launch): real workshop address.
-  address: "Samsun (adres onaylanacak)",
-  // TODO(confirm-before-launch): real working hours.
-  workingHours: "Pzt-Cmt 09:00-18:00 (teyit edilecek)",
+  // Confirmed by the user directly in-session (2026-08-27) - not inferred.
+  address: "Kale Mah. Kasaplar Cad. No:16, İlkadım/Samsun",
+  // Confirmed by the user directly in-session (2026-08-27) - not inferred.
+  workingHours: "Pzt-Cmt 08:30-19:30",
   // Confirmed by the user directly in-session (2026-08-27) - not inferred.
   warrantyLabel: "6 Ay Garanti",
 } as const;

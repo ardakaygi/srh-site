@@ -3,24 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { BRAND_LOGO_MAP } from "@/lib/brandLogos";
 import { ilMarkaSlug } from "@/lib/slugs";
 
 interface BrandLite {
   slug: string;
   name: string;
 }
-
-// Only brands we actually have a downloaded, properly-licensed logo file
-// for (public/brand-logos/, see decisions.md) get the logo-tile treatment;
-// everything else appears as a plain text link - never fabricate a logo.
-const LOGO_MAP: Record<string, string> = {
-  roborock: "/brand-logos/roborock.svg",
-  xiaomi: "/brand-logos/xiaomi.svg",
-  samsung: "/brand-logos/samsung.svg",
-  dreame: "/brand-logos/dreame.svg",
-  ecovacs: "/brand-logos/ecovacs.png",
-  irobot: "/brand-logos/irobot.svg",
-};
 
 export function BrandsMegaMenu({
   popularBrands,
@@ -70,7 +59,7 @@ export function BrandsMegaMenu({
                   >
                     <span className="flex h-8 w-full items-center justify-center">
                       <Image
-                        src={LOGO_MAP[brand.slug]}
+                        src={BRAND_LOGO_MAP[brand.slug]}
                         alt={brand.name}
                         width={90}
                         height={32}

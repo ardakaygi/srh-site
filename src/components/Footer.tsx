@@ -34,31 +34,12 @@ export function Footer() {
             <li><Link href="/iletisim" className="hover:text-white">İletişim</Link></li>
             <li><Link href="/kvkk-aydinlatma-metni" className="hover:text-white">KVKK Aydınlatma Metni</Link></li>
             <li><Link href="/cerez-politikasi" className="hover:text-white">Çerez Politikası</Link></li>
+            <li><Link href="/telif-ve-marka-bildirimi" className="hover:text-white">Telif ve Marka Bildirimi</Link></li>
           </ul>
         </div>
       </div>
       <div className="border-t border-white/10 px-4 py-4 text-center text-xs text-slate-500">
         © {new Date().getFullYear()} {siteConfig.businessName}. Tüm hakları saklıdır.
-        {" · "}
-        Dreame logosu{" "}
-        <a
-          href="https://commons.wikimedia.org/wiki/File:Logo_of_Dreame.svg"
-          className="underline hover:text-slate-300"
-        >
-          Wikimedia Commons
-        </a>{" "}
-        (CC BY-SA 4.0, Dreame Technology) kaynaklıdır. Türkiye harita anahattı{" "}
-        <a
-          href="https://commons.wikimedia.org/wiki/File:Map_of_Turkey.svg"
-          className="underline hover:text-slate-300"
-        >
-          Nevit Dilmen
-        </a>{" "}
-        tarafından hazırlanmış, CC BY-SA 3.0 lisansı altında kullanılmıştır.
-        Sitede görülen tüm marka isim ve logoları ilgili marka sahiplerine
-        aittir; bu sayfada yalnızca hizmet verilen markaların tanıtımı
-        amacıyla, marka sahipleriyle herhangi bir bağlantı veya yetkili
-        servis ilişkisi iddia edilmeden kullanılmaktadır.
       </div>
     </footer>
   );
