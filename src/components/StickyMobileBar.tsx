@@ -14,7 +14,7 @@ export function StickyMobileBar() {
       </a>
       <WhatsAppButton
         message="Merhaba, robot süpürgem için servis talebinde bulunmak istiyorum."
-        className="flex flex-1 items-center justify-center gap-1.5 border-x border-black/10 bg-emerald-600 py-3 text-sm font-semibold text-white"
+        className="flex flex-1 items-center justify-center gap-1.5 border-x border-black/10 bg-brand-600 py-3 text-sm font-semibold text-white"
       >
         WhatsApp
       </WhatsAppButton>

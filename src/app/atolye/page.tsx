@@ -58,7 +58,7 @@ export default function AtolyePage() {
       <div className="mt-10">
         <Link
           href="/servis-talep"
-          className="rounded-full bg-emerald-700 px-6 py-3 text-sm font-semibold text-white hover:bg-emerald-800"
+          className="rounded-full bg-brand-700 px-6 py-3 text-sm font-semibold text-white hover:bg-brand-800"
         >
           Servis Talebi Oluştur
         </Link>

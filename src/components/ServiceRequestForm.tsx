@@ -66,14 +66,14 @@ export function ServiceRequestForm({
 
   if (state.status === "success") {
     return (
-      <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-6 text-center">
-        <h2 className="text-xl font-bold text-emerald-900">
+      <div className="rounded-xl border border-brand-200 bg-brand-50 p-6 text-center">
+        <h2 className="text-xl font-bold text-brand-900">
           Servis talebiniz alındı!
         </h2>
-        <p className="mt-2 text-emerald-800">
+        <p className="mt-2 text-brand-800">
           Takip kodunuz: <span className="font-mono font-bold">{state.trackingCode}</span>
         </p>
-        <p className="mt-2 text-sm text-emerald-800">
+        <p className="mt-2 text-sm text-brand-800">
           Bu kodu not edin — cihazınızın durumunu{" "}
           <Link href={`/servis-takip?kod=${state.trackingCode}`} className="underline">
             kargo takip sayfamızdan
@@ -96,9 +96,9 @@ export function ServiceRequestForm({
               aria-current={isCurrent ? "step" : undefined}
               className={`rounded-full px-3 py-1 ${
                 isCurrent
-                  ? "bg-emerald-700 text-white"
+                  ? "bg-brand-700 text-white"
                   : stepNumber < step
-                    ? "bg-emerald-100 text-emerald-800"
+                    ? "bg-brand-100 text-brand-800"
                     : "bg-slate-100"
               }`}
             >
@@ -187,7 +187,7 @@ export function ServiceRequestForm({
             type="button"
             disabled={!stepValid[1]}
             onClick={() => setStep(2)}
-            className="rounded-full bg-emerald-700 px-6 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
+            className="rounded-full bg-brand-700 px-6 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
           >
             İleri
           </button>
@@ -213,7 +213,7 @@ export function ServiceRequestForm({
                       prev.includes(f.title) ? prev : (prev ? `${prev}\n${f.title}` : f.title),
                     )
                   }
-                  className="rounded-full border border-slate-300 px-3 py-1 text-xs font-medium text-slate-700 hover:border-emerald-500 hover:text-emerald-800"
+                  className="rounded-full border border-slate-300 px-3 py-1 text-xs font-medium text-slate-700 hover:border-brand-500 hover:text-brand-800"
                 >
                   + {f.title}
                 </button>
@@ -257,7 +257,7 @@ export function ServiceRequestForm({
             type="button"
             disabled={!stepValid[2]}
             onClick={() => setStep(3)}
-            className="rounded-full bg-emerald-700 px-6 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
+            className="rounded-full bg-brand-700 px-6 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
           >
             İleri
           </button>
@@ -366,7 +366,7 @@ export function ServiceRequestForm({
             type="button"
             disabled={!stepValid[3]}
             onClick={() => setStep(4)}
-            className="rounded-full bg-emerald-700 px-6 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
+            className="rounded-full bg-brand-700 px-6 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
           >
             İleri
           </button>
@@ -430,7 +430,7 @@ export function ServiceRequestForm({
           <button
             type="submit"
             disabled={!stepValid[4] || isPending}
-            className="rounded-full bg-emerald-700 px-6 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
+            className="rounded-full bg-brand-700 px-6 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
           >
             {isPending ? "Gönderiliyor…" : "Servis Talebini Gönder"}
           </button>

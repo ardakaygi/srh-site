@@ -27,7 +27,7 @@ export default function IletisimPage() {
         <div>
           <dt className="text-sm font-medium text-slate-500">Telefon</dt>
           <dd>
-            <a href={siteConfig.phoneHref} className="text-emerald-700 hover:underline">
+            <a href={siteConfig.phoneHref} className="text-brand-700 hover:underline">
               {siteConfig.phoneDisplay}
             </a>
           </dd>
@@ -41,13 +41,13 @@ export default function IletisimPage() {
       <div className="mt-8 flex flex-wrap gap-3">
         <a
           href={siteConfig.phoneHref}
-          className="rounded-full bg-emerald-700 px-6 py-3 text-sm font-semibold text-white hover:bg-emerald-800"
+          className="rounded-full bg-brand-700 px-6 py-3 text-sm font-semibold text-white hover:bg-brand-800"
         >
           Hemen Ara
         </a>
         <WhatsAppButton
           message="Merhaba, robot süpürgem hakkında bilgi almak istiyorum."
-          className="rounded-full border border-emerald-700 px-6 py-3 text-sm font-semibold text-emerald-800 hover:bg-emerald-50"
+          className="rounded-full border border-brand-700 px-6 py-3 text-sm font-semibold text-brand-800 hover:bg-brand-50"
         >
           WhatsApp ile Yazın
         </WhatsAppButton>

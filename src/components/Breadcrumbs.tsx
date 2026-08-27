@@ -29,7 +29,7 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
             {index === items.length - 1 ? (
               <span className="font-medium text-slate-700">{item.label}</span>
             ) : (
-              <Link href={item.href} className="hover:text-emerald-700">
+              <Link href={item.href} className="hover:text-brand-700">
                 {item.label}
               </Link>
             )}

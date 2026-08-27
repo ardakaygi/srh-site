@@ -10,17 +10,105 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Brand blue, sourced directly from the vector logo (public/logo.svg):
+     #005e97 (icon/text) and #003b64 (SRH wordmark accent) land exactly on
+     the 600 and 900 steps below; the rest of the scale is interpolated. */
+  --color-brand-50: #eaf3f9;
+  --color-brand-100: #d0e6f3;
+  --color-brand-200: #a3cce8;
+  --color-brand-300: #70afd9;
+  --color-brand-400: #3f92c8;
+  --color-brand-500: #1f7bb8;
+  --color-brand-600: #005e97;
+  --color-brand-700: #004f80;
+  --color-brand-800: #004169;
+  --color-brand-900: #003b64;
+  --color-brand-950: #00223a;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* No dark-mode variant on purpose: this is a fixed-brand business site
+   (see public/logo.svg), not a generic app - it should look the same
+   regardless of the visitor's OS/browser color-scheme preference. The
+   scaffold's dark-mode override was also a real bug: this plain CSS rule
+   is unlayered, so it always beats layered Tailwind utilities like
+   `bg-white` on the same element (unlayered CSS wins over any `@layer`
+   rule regardless of specificity) - any card/section without its own
+   explicit background utility rendered black under a dark OS theme. */
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up {
+    animation: none;
+  }
+}
+
+/* Rotating headline phrase (hero) - 5 phrases, each visible for a 20% slot
+   of the 10s cycle, staggered via inline animation-delay per span. */
+@keyframes rotate-fade-5 {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  4% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  16% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  20% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.rotate-fade {
+  /* Grid-stacking trick: every phrase shares the same [1/1] cell, so the
+     container auto-sizes to whichever phrase is widest/tallest - no need
+     to guess a fixed ch/rem width per phrase (which clips longer ones). */
+  display: inline-grid;
+}
+
+.rotate-fade > span {
+  grid-area: 1 / 1;
+  /* backwards: during each span's animation-delay, use the 0% keyframe
+     (opacity: 0) instead of the element's default style - without this,
+     every phrase is visibly opaque and overlapping until its delay elapses. */
+  animation: rotate-fade-5 20s infinite backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rotate-fade > span {
+    animation: none !important;
+    opacity: 0;
+  }
+  .rotate-fade > span:first-child {
+    opacity: 1;
+    transform: none;
+  }
 }

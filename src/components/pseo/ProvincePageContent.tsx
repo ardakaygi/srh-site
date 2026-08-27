@@ -51,7 +51,7 @@ export async function ProvincePageContent({
       <h1 className="mt-4 text-3xl font-bold text-slate-900">
         {province.name} Robot Süpürge Servisi
       </h1>
-      <p className="mt-2 text-sm font-medium text-emerald-700">
+      <p className="mt-2 text-sm font-medium text-brand-700">
         Tahmini kargo/teslimat süresi: {province.leadTimeLabel}
       </p>
       <div className="mt-4">
@@ -65,7 +65,7 @@ export async function ProvincePageContent({
       <div className="mt-8 flex flex-wrap gap-3">
         <Link
           href="/servis-talep"
-          className="rounded-full bg-emerald-700 px-6 py-3 text-sm font-semibold text-white hover:bg-emerald-800"
+          className="rounded-full bg-brand-700 px-6 py-3 text-sm font-semibold text-white hover:bg-brand-800"
         >
           {province.name} İçin Servis Talebi Oluştur
         </Link>
@@ -76,7 +76,7 @@ export async function ProvincePageContent({
         <ol className="mt-4 space-y-3">
           {processSteps.map((step, index) => (
             <li key={step} className="flex gap-3 text-slate-700">
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-xs font-bold text-emerald-800">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-800">
                 {index + 1}
               </span>
               <span>{step}</span>
@@ -95,7 +95,7 @@ export async function ProvincePageContent({
               <Link
                 key={brand.id}
                 href={`/${ilMarkaSlug(brand.slug)}`}
-                className="rounded-xl border border-slate-200 p-4 font-semibold text-slate-800 hover:border-emerald-400 hover:text-emerald-800"
+                className="rounded-xl border border-slate-200 p-4 font-semibold text-slate-800 hover:border-brand-400 hover:text-brand-800"
               >
                 {brand.name}
               </Link>
@@ -132,7 +132,7 @@ export async function ProvincePageContent({
               <Link
                 key={p.id}
                 href={`/${ilMarkaSlug(p.slug)}`}
-                className="rounded-full border border-slate-200 px-4 py-1.5 text-sm font-medium text-slate-700 hover:border-emerald-400 hover:text-emerald-800"
+                className="rounded-full border border-slate-200 px-4 py-1.5 text-sm font-medium text-slate-700 hover:border-brand-400 hover:text-brand-800"
               >
                 {p.name}
               </Link>

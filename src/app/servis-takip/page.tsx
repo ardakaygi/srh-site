@@ -81,7 +81,7 @@ export default async function ServisTakipPage({
         />
         <button
           type="submit"
-          className="rounded-full bg-emerald-700 px-6 py-2 text-sm font-semibold text-white hover:bg-emerald-800"
+          className="rounded-full bg-brand-700 px-6 py-2 text-sm font-semibold text-white hover:bg-brand-800"
         >
           Sorgula
         </button>
@@ -117,7 +117,7 @@ export default async function ServisTakipPage({
           />
           <button
             type="submit"
-            className="rounded-full border border-emerald-700 px-6 py-2 text-sm font-semibold text-emerald-800"
+            className="rounded-full border border-brand-700 px-6 py-2 text-sm font-semibold text-brand-800"
           >
             Sorgula
           </button>
@@ -160,7 +160,7 @@ export default async function ServisTakipPage({
                     <li key={status} className="flex items-start gap-3">
                       <span
                         className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold ${
-                          done ? "bg-emerald-600 text-white" : "bg-slate-200 text-slate-500"
+                          done ? "bg-brand-600 text-white" : "bg-slate-200 text-slate-500"
                         }`}
                       >
                         {index + 1}
@@ -181,7 +181,7 @@ export default async function ServisTakipPage({
               {r.carrierTrackingUrl && (
                 <a
                   href={r.carrierTrackingUrl}
-                  className="mt-4 inline-block text-sm font-semibold text-emerald-700 hover:underline"
+                  className="mt-4 inline-block text-sm font-semibold text-brand-700 hover:underline"
                 >
                   Kargo firması takip sayfası →
                 </a>

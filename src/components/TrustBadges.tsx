@@ -1,6 +1,9 @@
+import { siteConfig } from "@/lib/site-config";
+
 const badges = [
   "Ücretsiz Arıza Tespiti",
   "Orijinal Yedek Parça",
+  siteConfig.warrantyLabel,
   "Anlaşmalı Kargo",
 ];
 
@@ -10,7 +13,7 @@ export function TrustBadges() {
       {badges.map((badge) => (
         <li
           key={badge}
-          className="rounded-full border border-emerald-600/30 bg-emerald-50 px-4 py-1.5 font-medium text-emerald-800"
+          className="rounded-full border border-brand-600/30 bg-brand-50 px-4 py-1.5 font-medium text-brand-800"
         >
           {badge}
         </li>

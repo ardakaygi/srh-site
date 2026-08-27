@@ -35,7 +35,7 @@ export default async function MarkalarPage() {
           <Link
             key={brand.id}
             href={`/${ilMarkaSlug(brand.slug)}`}
-            className="rounded-xl border border-slate-200 p-4 font-semibold text-slate-800 hover:border-emerald-400 hover:text-emerald-800"
+            className="rounded-xl border border-slate-200 p-4 font-semibold text-slate-800 hover:border-brand-400 hover:text-brand-800"
           >
             {brand.name} Robot Süpürge Servisi
           </Link>

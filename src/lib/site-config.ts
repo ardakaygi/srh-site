@@ -8,17 +8,17 @@ export const siteConfig = {
   businessName: "Samsun Robot Hastanesi",
   // TODO(confirm-before-launch): real production domain.
   siteUrl: "https://samsunrobothastanesi.com.tr",
-  // TODO(confirm-before-launch): real phone number.
-  phoneDisplay: "0(XXX) XXX XX XX",
-  phoneHref: "tel:+90XXXXXXXXXX",
+  // Confirmed by the user directly in-session (2026-08-27) - not inferred.
+  phoneDisplay: "0362 431 19 19",
+  phoneHref: "tel:+903624311919",
   // TODO(confirm-before-launch): real WhatsApp business number, E.164 format, no leading +.
   whatsappNumber: "90XXXXXXXXXX",
   // TODO(confirm-before-launch): real workshop address.
   address: "Samsun (adres onaylanacak)",
   // TODO(confirm-before-launch): real working hours.
   workingHours: "Pzt-Cmt 09:00-18:00 (teyit edilecek)",
-  // TODO(confirm-before-launch): actual warranty term the business offers.
-  warrantyLabel: "Garanti süresi (teyit edilecek)",
+  // Confirmed by the user directly in-session (2026-08-27) - not inferred.
+  warrantyLabel: "6 Ay Garanti",
 } as const;
 
 /** Builds a wa.me click-to-chat link with a Turkish, page-contextual pre-filled message. */

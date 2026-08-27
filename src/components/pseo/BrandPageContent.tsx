@@ -52,7 +52,7 @@ export async function BrandPageContent({ brand }: { brand: BrandView }) {
       <div className="mt-8">
         <Link
           href="/servis-talep"
-          className="rounded-full bg-emerald-700 px-6 py-3 text-sm font-semibold text-white hover:bg-emerald-800"
+          className="rounded-full bg-brand-700 px-6 py-3 text-sm font-semibold text-white hover:bg-brand-800"
         >
           {brand.name} İçin Servis Talebi Oluştur
         </Link>
@@ -82,7 +82,7 @@ export async function BrandPageContent({ brand }: { brand: BrandView }) {
               <Link
                 key={model.id}
                 href={`/model/${modelFullSlug(brand.slug, model.slug)}`}
-                className="rounded-xl border border-slate-200 p-4 hover:border-emerald-400"
+                className="rounded-xl border border-slate-200 p-4 hover:border-brand-400"
               >
                 <p className="font-semibold text-slate-900">{model.name}</p>
                 <p className="mt-1 text-xs text-slate-500">
@@ -140,7 +140,7 @@ export async function BrandPageContent({ brand }: { brand: BrandView }) {
         </p>
         <Link
           href="/hizmet-bolgeleri"
-          className="mt-3 inline-block text-sm font-semibold text-emerald-700 hover:underline"
+          className="mt-3 inline-block text-sm font-semibold text-brand-700 hover:underline"
         >
           Tüm hizmet bölgelerini gör →
         </Link>

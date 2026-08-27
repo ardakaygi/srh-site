@@ -19,3 +19,7 @@ Format: **[Tarih] Karar** — Gerekçe
 - **[2026-08-27] Ödeme entegrasyonu kapsam dışı** — Kullanıcı onayı: servis talebi akışı şimdilik "ücretsiz arıza tespiti + teklif" modeliyle sınırlı, online tahsilat yok.
 
 - **[2026-08-27] Kargo entegrasyonu: soyutlanmış `CarrierProvider` arayüzü + stub implementasyon** — Gerçek kargo ortağı henüz teyit edilmedi (`src/lib/carrier.ts`). Karar: UI/iş mantığı gerçek entegrasyondan bağımsız kalsın, ileride tek bir dosya değişikliğiyle gerçek sağlayıcıya geçilebilsin.
+
+- **[2026-08-27] Marka logosu + tema rengi: Desktop'taki `logo.pdf`'ten çıkarıldı** — Vektör logo PyMuPDF ile SVG'ye dönüştürülüp (`public/logo.svg`, favicon için ayrı kırpılmış `src/app/icon.svg`) sitede kullanıldı. Tema rengi (`brand-*` Tailwind paleti, `src/app/globals.css`), logonun kendi vektör verisinden çıkarılan tam hex değerlerine (`#005e97` ana mavi, `#003b64` koyu vurgu) dayanıyor — tahmini değil.
+
+- **[2026-08-27] Garanti süresi onaylandı: 6 Ay Garanti** — Daha önce (bu dosyada ve `known-issues.md`'de) rakip sitenin rakamı olduğu için kasıtlı olarak kullanılmamıştı. Kullanıcı bu oturumda doğrudan "6 ay garanti" yazılmasını istedi — bu artık tahmin değil, işletme sahibinin kendi onayı. `src/lib/site-config.ts`'teki `warrantyLabel` güncellendi ve TrustBadges ile hero'da kullanılıyor.
