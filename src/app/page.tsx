@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ProvinceQuickSelect } from "@/components/ProvinceQuickSelect";
+import { ServiceCoverageMap } from "@/components/ServiceCoverageMap";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { getAllBrands, getAllProvinces } from "@/lib/data";
 import { siteConfig } from "@/lib/site-config";
@@ -11,13 +13,31 @@ import {
   DockIcon,
   DropletIcon,
   FanIcon,
+  HeadsetIcon,
   MapIcon,
   MonitorIcon,
   RadarIcon,
+  ShieldCheckIcon,
   TrayIcon,
+  TruckIcon,
+  UserGroupIcon,
   WheelIcon,
   WifiIcon,
 } from "@/components/ServiceIcons";
+
+const coverageFeatures = [
+  { label: "Uzman Teknik Kadro", Icon: UserGroupIcon },
+  { label: "Türkiye Geneli Kargo", Icon: TruckIcon },
+  { label: "7/24 Destek Hattı", Icon: HeadsetIcon },
+  { label: "Garantili Servis", Icon: ShieldCheckIcon },
+];
+
+const coverageChecklist = [
+  "Samsun Merkezli Uzman Servis",
+  "81 İlde Anlaşmalı Kargo",
+  "Ücretsiz Gönderim Kodu",
+  "Onarım Sonrası Güvenli Teslim",
+];
 
 export const revalidate = 3600;
 
@@ -153,7 +173,6 @@ const serviceCategories = [
 // lists already live at /hizmet-bolgeleri and /markalar). Well-known
 // entries are picked so the preview looks intentional, not arbitrary.
 const HOMEPAGE_BRAND_SLUGS = ["roborock", "xiaomi", "dreame", "ecovacs", "irobot", "dyson"];
-const HOMEPAGE_PROVINCE_SLUGS = ["samsun", "istanbul", "ankara", "izmir", "antalya", "bursa"];
 
 function curatedPreview<T extends { slug: string }>(items: T[], slugOrder: string[]): T[] {
   const bySlug = new Map(items.map((item) => [item.slug, item]));
@@ -167,7 +186,6 @@ export default async function HomePage() {
     getAllProvinces(),
   ]);
   const brands = curatedPreview(allBrands, HOMEPAGE_BRAND_SLUGS);
-  const provinces = curatedPreview(allProvinces, HOMEPAGE_PROVINCE_SLUGS);
 
   return (
     <div>
@@ -347,28 +365,59 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-14">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-slate-900">
-            Hizmet Bölgeleri
-          </h2>
-          <Link
-            href="/hizmet-bolgeleri"
-            className="text-sm font-semibold text-brand-700 hover:underline"
-          >
-            81 İli Gör →
-          </Link>
-        </div>
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {provinces.map((province) => (
+      <section className="overflow-hidden bg-slate-50 px-4 py-16">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-2">
+          {/* Left: coverage map */}
+          <div className="relative">
+            <ServiceCoverageMap />
+            <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {coverageFeatures.map((f) => (
+                <div key={f.label} className="flex flex-col items-center gap-1.5 text-center">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-brand-700 shadow-sm">
+                    <f.Icon className="h-4 w-4" />
+                  </span>
+                  <span className="text-xs font-medium text-slate-600">{f.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: copy + quick province lookup */}
+          <div>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-brand-800">
+              Türkiye Geneli Hizmet Ağımız
+            </span>
+            <h2 className="mt-4 text-3xl font-bold text-slate-900">
+              81 İlin Tamamına Robot Süpürge Servisi
+            </h2>
+            <p className="mt-3 text-slate-600">
+              Samsun&apos;daki merkez atölyemizden, anlaşmalı kargo ağıyla
+              Türkiye&apos;nin her iline ulaşıyoruz. Nerede olursanız olun,
+              cihazınızı bize güvenle gönderebilirsiniz.
+            </p>
+
+            <div className="mt-6">
+              <ProvinceQuickSelect
+                provinces={allProvinces.map((p) => ({ slug: p.slug, name: p.name }))}
+              />
+            </div>
+
+            <ul className="mt-6 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2">
+              {coverageChecklist.map((item) => (
+                <li key={item} className="flex items-center gap-1.5 text-sm font-medium text-slate-700">
+                  <CheckIcon className="h-4 w-4" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+
             <Link
-              key={province.id}
-              href={`/${ilMarkaSlug(province.slug)}`}
-              className="rounded-xl border border-slate-200 p-4 font-semibold text-slate-800 transition-colors hover:border-brand-400 hover:text-brand-800"
+              href="/hizmet-bolgeleri"
+              className="mt-6 inline-flex items-center gap-1 rounded-full bg-brand-700 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-800"
             >
-              {province.name} Robot Süpürge Servisi
+              81 İli Görüntüle →
             </Link>
-          ))}
+          </div>
         </div>
       </section>
 

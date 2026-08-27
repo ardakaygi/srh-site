@@ -139,3 +139,45 @@ export function CameraIcon({ className = base }: IconProps) {
     </svg>
   );
 }
+
+export function UserGroupIcon({ className = base }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinejoin="round" className={className}>
+      <circle cx="9" cy="8" r="2.6" />
+      <path d="M4 19c0-2.8 2.2-5 5-5s5 2.2 5 5" />
+      <circle cx="17" cy="9" r="2" />
+      <path d="M15.5 14.2c1.9.4 3.5 2 3.5 4.8" />
+    </svg>
+  );
+}
+
+export function TruckIcon({ className = base }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinejoin="round" className={className}>
+      <rect x="2" y="7" width="12" height="9" rx="1" />
+      <path d="M14 10h4l3 3v3h-7z" />
+      <circle cx="7" cy="18" r="1.6" />
+      <circle cx="17.5" cy="18" r="1.6" />
+    </svg>
+  );
+}
+
+export function HeadsetIcon({ className = base }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinejoin="round" className={className}>
+      <path d="M4 13v-1a8 8 0 0116 0v1" />
+      <rect x="3" y="13" width="4" height="5" rx="1" />
+      <rect x="17" y="13" width="4" height="5" rx="1" />
+      <path d="M19 18v1a2 2 0 01-2 2h-3" />
+    </svg>
+  );
+}
+
+export function ShieldCheckIcon({ className = base }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinejoin="round" className={className}>
+      <path d="M12 3l7 3v5c0 4.5-3 7.5-7 10-4-2.5-7-5.5-7-10V6l7-3Z" />
+      <path d="M9 12l2 2 4-4" />
+    </svg>
+  );
+}

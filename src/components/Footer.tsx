@@ -46,11 +46,18 @@ export function Footer() {
         >
           Wikimedia Commons
         </a>{" "}
-        (CC BY-SA 4.0, Dreame Technology) kaynaklıdır. Sitede görülen tüm
-        marka isim ve logoları ilgili marka sahiplerine aittir; bu sayfada
-        yalnızca hizmet verilen markaların tanıtımı amacıyla, marka
-        sahipleriyle herhangi bir bağlantı veya yetkili servis ilişkisi
-        iddia edilmeden kullanılmaktadır.
+        (CC BY-SA 4.0, Dreame Technology) kaynaklıdır. Türkiye harita anahattı{" "}
+        <a
+          href="https://commons.wikimedia.org/wiki/File:Map_of_Turkey.svg"
+          className="underline hover:text-slate-300"
+        >
+          Nevit Dilmen
+        </a>{" "}
+        tarafından hazırlanmış, CC BY-SA 3.0 lisansı altında kullanılmıştır.
+        Sitede görülen tüm marka isim ve logoları ilgili marka sahiplerine
+        aittir; bu sayfada yalnızca hizmet verilen markaların tanıtımı
+        amacıyla, marka sahipleriyle herhangi bir bağlantı veya yetkili
+        servis ilişkisi iddia edilmeden kullanılmaktadır.
       </div>
     </footer>
   );
