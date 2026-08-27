@@ -4,6 +4,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getCarrierProvider } from "@/lib/carrier";
 import { generateTrackingCode } from "@/lib/tracking";
+import { normalizePhone } from "@/lib/phone";
 
 const ServiceRequestSchema = z.object({
   brandId: z.string().min(1, "Lütfen bir marka seçin."),
@@ -72,6 +73,9 @@ export async function submitServiceRequest(
   }
 
   const trackingCode = generateTrackingCode();
+  // Stored digits-only so a later lookup (any formatting) matches via the
+  // same normalization - see src/app/servis-takip/page.tsx.
+  const normalizedPhone = normalizePhone(data.customerPhone);
 
   const serviceRequest = await prisma.serviceRequest.create({
     data: {
@@ -80,7 +84,7 @@ export async function submitServiceRequest(
       modelName: data.modelName || null,
       faultDescription: data.faultDescription,
       customerName: data.customerName,
-      customerPhone: data.customerPhone,
+      customerPhone: normalizedPhone,
       provinceId: province.id,
       addressLine: data.addressLine,
       kvkkConsent: true,
@@ -93,23 +97,35 @@ export async function submitServiceRequest(
     },
   });
 
-  const carrier = getCarrierProvider();
-  const shipment = await carrier.createShipment({
-    serviceRequestId: serviceRequest.id,
-    trackingCode,
-    customerName: data.customerName,
-    customerPhone: data.customerPhone,
-    addressLine: data.addressLine,
-    provinceName: province.name,
-  });
+  // The request row (and its trackingCode) is already committed at this
+  // point. A carrier-side failure must not stop the customer from receiving
+  // their trackingCode - it's the only identifier they need for
+  // /servis-takip, and carrier info can be filled in later (retry / manual
+  // follow-up) without losing the request itself.
+  try {
+    const carrier = getCarrierProvider();
+    const shipment = await carrier.createShipment({
+      serviceRequestId: serviceRequest.id,
+      trackingCode,
+      customerName: data.customerName,
+      customerPhone: normalizedPhone,
+      addressLine: data.addressLine,
+      provinceName: province.name,
+    });
 
-  await prisma.serviceRequest.update({
-    where: { id: serviceRequest.id },
-    data: {
-      carrierName: shipment.carrierName,
-      carrierTrackingUrl: shipment.carrierTrackingUrl,
-    },
-  });
+    await prisma.serviceRequest.update({
+      where: { id: serviceRequest.id },
+      data: {
+        carrierName: shipment.carrierName,
+        carrierTrackingUrl: shipment.carrierTrackingUrl,
+      },
+    });
+  } catch (err) {
+    console.error(
+      `Kargo entegrasyonu başarısız oldu (servis talebi ${serviceRequest.id}, takip kodu ${trackingCode}); talep kaydedildi, kargo bilgisi sonradan eklenmeli.`,
+      err,
+    );
+  }
 
   return { status: "success", trackingCode };
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { prisma } from "@/lib/prisma";
 import { STATUS_LABELS, STATUS_ORDER } from "@/lib/status";
+import { normalizePhone } from "@/lib/phone";
 
 export const metadata: Metadata = {
   title: "Kargo / Servis Takip",
@@ -18,25 +19,37 @@ function maskPhone(phone: string): string {
 export default async function ServisTakipPage({
   searchParams,
 }: {
-  searchParams: Promise<{ kod?: string; tel?: string }>;
+  searchParams: Promise<{ kod?: string; tel?: string; ad?: string }>;
 }) {
-  const { kod, tel } = await searchParams;
+  const { kod, tel, ad } = await searchParams;
+
+  // Security: a phone number alone is not a secret (unlike trackingCode, a
+  // high-entropy server-generated value) - looking up personal repair data
+  // by phone alone would let anyone who merely knows a customer's number
+  // see their request. Requiring name + phone together as a second factor
+  // keeps the "I lost my tracking code" path usable for the real customer
+  // (who obviously knows both) while raising the bar for everyone else.
+  const normalizedTel = tel ? normalizePhone(tel) : "";
+  const nameQuery = ad?.trim().toLowerCase() ?? "";
 
   const results = kod
     ? await prisma.serviceRequest.findMany({
         where: { trackingCode: kod.trim().toUpperCase() },
         include: { brand: true, province: true, statusEvents: { orderBy: { createdAt: "asc" } } },
       })
-    : tel
-      ? await prisma.serviceRequest.findMany({
-          where: { customerPhone: tel.trim() },
-          include: { brand: true, province: true, statusEvents: { orderBy: { createdAt: "asc" } } },
-          orderBy: { createdAt: "desc" },
-          take: 5,
-        })
+    : normalizedTel && nameQuery
+      ? (
+          await prisma.serviceRequest.findMany({
+            where: { customerPhone: normalizedTel },
+            include: { brand: true, province: true, statusEvents: { orderBy: { createdAt: "asc" } } },
+            orderBy: { createdAt: "desc" },
+            take: 5,
+          })
+        ).filter((r) => r.customerName.trim().toLowerCase() === nameQuery)
       : [];
 
-  const searched = Boolean(kod || tel);
+  const searched = Boolean(kod || (tel && ad));
+  const phoneFormIncomplete = Boolean((tel || ad) && !(tel && ad));
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-10">
@@ -75,7 +88,22 @@ export default async function ServisTakipPage({
       </form>
       <details className="mt-3 text-sm text-slate-600">
         <summary className="cursor-pointer">Takip kodum yok, telefon numaramla arayayım</summary>
+        <p className="mt-2 text-xs text-slate-500">
+          Güvenliğiniz için ad soyad ve telefon numaranızın birlikte
+          eşleşmesi gerekir.
+        </p>
         <form method="get" className="mt-3 flex flex-col gap-3 sm:flex-row">
+          <label htmlFor="ad" className="sr-only">
+            Ad Soyad
+          </label>
+          <input
+            id="ad"
+            name="ad"
+            type="text"
+            placeholder="Ad Soyad"
+            defaultValue={ad ?? ""}
+            className="flex-1 rounded-lg border border-slate-300 px-3 py-2"
+          />
           <label htmlFor="tel" className="sr-only">
             Telefon numarası
           </label>
@@ -95,6 +123,13 @@ export default async function ServisTakipPage({
           </button>
         </form>
       </details>
+
+      {phoneFormIncomplete && (
+        <p className="mt-4 rounded-lg bg-amber-50 p-4 text-sm text-amber-800">
+          Telefonla sorgulamak için hem ad soyad hem de telefon numarasını
+          girmeniz gerekir.
+        </p>
+      )}
 
       {searched && results.length === 0 && (
         <p className="mt-8 rounded-lg bg-amber-50 p-4 text-sm text-amber-800">

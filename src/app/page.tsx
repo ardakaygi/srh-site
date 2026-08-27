@@ -3,6 +3,7 @@ import { TrustBadges } from "@/components/TrustBadges";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { getAllBrands, getAllProvinces } from "@/lib/data";
 import { siteConfig } from "@/lib/site-config";
+import { ilMarkaSlug } from "@/lib/slugs";
 
 export const revalidate = 3600;
 
@@ -94,7 +95,7 @@ export default async function HomePage() {
             {brands.map((brand) => (
               <Link
                 key={brand.id}
-                href={`/${brand.slug}-robot-supurge-servisi`}
+                href={`/${ilMarkaSlug(brand.slug)}`}
                 className="rounded-xl border border-slate-200 bg-white p-4 font-semibold text-slate-800 transition-colors hover:border-emerald-400 hover:text-emerald-800"
               >
                 {brand.name} Robot Süpürge Servisi
@@ -120,7 +121,7 @@ export default async function HomePage() {
           {provinces.map((province) => (
             <Link
               key={province.id}
-              href={`/${province.slug}-robot-supurge-servisi`}
+              href={`/${ilMarkaSlug(province.slug)}`}
               className="rounded-xl border border-slate-200 p-4 font-semibold text-slate-800 transition-colors hover:border-emerald-400 hover:text-emerald-800"
             >
               {province.name} Robot Süpürge Servisi

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ServiceRequestForm } from "@/components/ServiceRequestForm";
-import { getAllBrands, getAllProvinces, getModelsByBrandSlug } from "@/lib/data";
+import { getAllBrands, getAllModelsWithBrand, getAllProvinces } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Servis Talebi Oluştur",
@@ -10,22 +10,22 @@ export const metadata: Metadata = {
 };
 
 export default async function ServisTalepPage() {
-  const [brands, provinces] = await Promise.all([
+  // Single bulk fetch + in-memory grouping instead of one query per brand -
+  // matters once the catalog reaches the 70+ brands MASTER_PROMPT.md targets.
+  const [brands, provinces, allModels] = await Promise.all([
     getAllBrands(),
     getAllProvinces(),
+    getAllModelsWithBrand(),
   ]);
 
-  const brandsWithModels = await Promise.all(
-    brands.map(async (b) => ({
-      id: b.id,
-      name: b.name,
-      faults: b.faults.slice(0, 6),
-      models: (await getModelsByBrandSlug(b.slug)).map((m) => ({
-        id: m.id,
-        name: m.name,
-      })),
-    })),
-  );
+  const brandsWithModels = brands.map((b) => ({
+    id: b.id,
+    name: b.name,
+    faults: b.faults.slice(0, 6),
+    models: allModels
+      .filter((m) => m.brandId === b.id)
+      .map((m) => ({ id: m.id, name: m.name })),
+  }));
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-10">
