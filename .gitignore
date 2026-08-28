@@ -14,7 +14,14 @@
 /coverage
 
 # next.js
-/.next/
+# .next/ is normally build-only-output and gitignored - but this project's
+# production host's container can't run `next build` at all (its cgroup
+# process/thread ceiling rejects every native tool the build touches, even
+# with a single-threaded config - see decisions.md), so the compiled
+# output is built locally instead and committed here for the server to
+# just `git pull` and run directly (no build step on the server). Cache
+# is excluded (regeneratable, large, and irrelevant to running the app).
+/.next/cache/
 /out/
 
 # production

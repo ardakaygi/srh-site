@@ -1,0 +1,323 @@
+{
+  "version": 3,
+  "pages404": true,
+  "appType": "app",
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "priority": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests;"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
+      ],
+      "regex": "^(?:/(.*))(?:/)?$"
+    }
+  ],
+  "onMatchHeaders": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/admin/blog/[id]",
+      "regex": "^/admin/blog/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/blog/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/admin/iller/[id]",
+      "regex": "^/admin/iller/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/iller/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/admin/markalar/[id]",
+      "regex": "^/admin/markalar/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/markalar/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/admin/modeller/[id]",
+      "regex": "^/admin/modeller/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/modeller/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/admin/servis-talepleri/[id]",
+      "regex": "^/admin/servis\\-talepleri/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/servis\\-talepleri/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/admin/sss/[id]",
+      "regex": "^/admin/sss/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/sss/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/blog/[slug]",
+      "regex": "^/blog/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/blog/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/model/[modelSlug]",
+      "regex": "^/model/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPmodelSlug": "nxtPmodelSlug"
+      },
+      "namedRegex": "^/model/(?<nxtPmodelSlug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/[slug]",
+      "regex": "^/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/(?<nxtPslug>[^/]+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_global-error",
+      "regex": "^/_global\\-error(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_global\\-error(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/admin",
+      "regex": "^/admin(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin(?:/)?$"
+    },
+    {
+      "page": "/admin/blog",
+      "regex": "^/admin/blog(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/blog(?:/)?$"
+    },
+    {
+      "page": "/admin/iller",
+      "regex": "^/admin/iller(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/iller(?:/)?$"
+    },
+    {
+      "page": "/admin/login",
+      "regex": "^/admin/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/login(?:/)?$"
+    },
+    {
+      "page": "/admin/markalar",
+      "regex": "^/admin/markalar(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/markalar(?:/)?$"
+    },
+    {
+      "page": "/admin/modeller",
+      "regex": "^/admin/modeller(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/modeller(?:/)?$"
+    },
+    {
+      "page": "/admin/servis-talepleri",
+      "regex": "^/admin/servis\\-talepleri(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/servis\\-talepleri(?:/)?$"
+    },
+    {
+      "page": "/admin/site-ayarlari",
+      "regex": "^/admin/site\\-ayarlari(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/site\\-ayarlari(?:/)?$"
+    },
+    {
+      "page": "/admin/sss",
+      "regex": "^/admin/sss(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/sss(?:/)?$"
+    },
+    {
+      "page": "/blog",
+      "regex": "^/blog(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/blog(?:/)?$"
+    },
+    {
+      "page": "/cerez-politikasi",
+      "regex": "^/cerez\\-politikasi(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/cerez\\-politikasi(?:/)?$"
+    },
+    {
+      "page": "/favicon.ico",
+      "regex": "^/favicon\\.ico(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/favicon\\.ico(?:/)?$"
+    },
+    {
+      "page": "/hizmet-bolgeleri",
+      "regex": "^/hizmet\\-bolgeleri(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/hizmet\\-bolgeleri(?:/)?$"
+    },
+    {
+      "page": "/icon.svg",
+      "regex": "^/icon\\.svg(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/icon\\.svg(?:/)?$"
+    },
+    {
+      "page": "/iletisim",
+      "regex": "^/iletisim(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/iletisim(?:/)?$"
+    },
+    {
+      "page": "/kurumsal",
+      "regex": "^/kurumsal(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/kurumsal(?:/)?$"
+    },
+    {
+      "page": "/kvkk-aydinlatma-metni",
+      "regex": "^/kvkk\\-aydinlatma\\-metni(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/kvkk\\-aydinlatma\\-metni(?:/)?$"
+    },
+    {
+      "page": "/markalar",
+      "regex": "^/markalar(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/markalar(?:/)?$"
+    },
+    {
+      "page": "/robots.txt",
+      "regex": "^/robots\\.txt(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/robots\\.txt(?:/)?$"
+    },
+    {
+      "page": "/servis-takip",
+      "regex": "^/servis\\-takip(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/servis\\-takip(?:/)?$"
+    },
+    {
+      "page": "/servis-talep",
+      "regex": "^/servis\\-talep(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/servis\\-talep(?:/)?$"
+    },
+    {
+      "page": "/sitemap.xml",
+      "regex": "^/sitemap\\.xml(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/sitemap\\.xml(?:/)?$"
+    },
+    {
+      "page": "/sss",
+      "regex": "^/sss(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/sss(?:/)?$"
+    },
+    {
+      "page": "/tamir-merkezi",
+      "regex": "^/tamir\\-merkezi(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/tamir\\-merkezi(?:/)?$"
+    },
+    {
+      "page": "/telif-ve-marka-bildirimi",
+      "regex": "^/telif\\-ve\\-marka\\-bildirimi(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/telif\\-ve\\-marka\\-bildirimi(?:/)?$"
+    },
+    {
+      "page": "/yasal-uyari",
+      "regex": "^/yasal\\-uyari(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/yasal\\-uyari(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments",
+    "clientParamParsing": false,
+    "dynamicRSCPrerender": false
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}
