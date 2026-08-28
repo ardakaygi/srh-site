@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build --webpack",
     "start": "next start",
-    "postinstall": "node scripts/postinstall.js",
+    "postinstall": "cd \"$INIT_CWD\" && prisma generate",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
