@@ -25,6 +25,16 @@ const cspHeader = `
 `;
 
 const nextConfig: NextConfig = {
+  // The production host (a resource-constrained shared/cPanel container)
+  // rejects the extra child-process spawns Next.js's build normally uses
+  // to parallelize static-page generation across CPU cores ("spawn ...
+  // EAGAIN" - the container's process/thread ceiling is lower than what
+  // `os.cpus()` reports). Forcing a single worker avoids that entirely;
+  // this project's page count is small enough that build time is still
+  // only single-digit seconds either way.
+  experimental: {
+    cpus: 1,
+  },
   async headers() {
     return [
       {
