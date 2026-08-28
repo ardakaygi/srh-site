@@ -88,7 +88,6 @@ export async function ProvincePageContent({
                 className="aspect-[3/4] w-full object-cover"
               />
             </div>
-            <p className="mt-2 text-xs text-slate-400">{landmark.credit}</p>
           </div>
         )}
       </div>

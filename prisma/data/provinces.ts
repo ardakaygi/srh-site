@@ -204,14 +204,9 @@ const REGION_META: Record<
   },
 };
 
-function shippingFaq(il: string, isHomeBase: boolean) {
-  if (isHomeBase) {
-    return {
-      question: `${il} içinde adresten cihaz alıyor musunuz?`,
-      answer:
-        "Evet, Samsun merkez ve yakın ilçelerde adresinizden ücretsiz cihaz teslim alma hizmetimiz vardır.",
-    };
-  }
+// Only used for non-home-base provinces - Samsun (home base) gets no FAQ
+// items at all, see the isHomeBase branch below.
+function shippingFaq(il: string) {
   return {
     question: `${il}'den Samsun'a gönderim nasıl işliyor?`,
     answer:
@@ -248,6 +243,12 @@ export const PROVINCES: ProvinceSeed[] = PROVINCE_TABLE.map((row) => {
       ? "Samsun Robot Hastanesi'nin merkezi Samsun'da bulunduğu için şehir içi taleplerde aynı gün adresten teslim alma ve hızlı arıza tespiti mümkündür. Karadeniz'in nemli iklimi robot süpürgelerde sensör ve tekerlek bölgesinde nem birikmesine yol açabildiğinden, periyodik bakım özellikle önemlidir."
       : meta.intro(row.name),
     topBrandSlugs: JSON.stringify(meta.topBrandSlugs),
-    faqJson: JSON.stringify([shippingFaq(row.name, isHomeBase), meta.faq2(row.name)]),
+    // Samsun (home base) has neither FAQ: "adresten teslim alma" and "nem
+    // kontrolü" questions read oddly for the city the workshop is actually
+    // in - removed per user request (2026-08-28), not applicable to any
+    // other province.
+    faqJson: isHomeBase
+      ? JSON.stringify([])
+      : JSON.stringify([shippingFaq(row.name), meta.faq2(row.name)]),
   };
 });
