@@ -1,16 +1,18 @@
 // Prisma schema for Samsun Robot Hastanesi.
 //
-// Dev datasource is SQLite (zero-config, file-based) so the project runs
-// without a provisioned Postgres server. Swap `provider`/`url` to postgresql
-// before production deployment — see MASTER_PROMPT.md §3 (this is a
-// low-stakes, swappable default, not an architectural decision).
+// Production datasource is MySQL (samsunro_srh on the cPanel host, 2026-08-28
+// - standard/free on cPanel, per the business owner's confirmed preference).
+// Local dev previously used SQLite for zero-config convenience; since the
+// two engines diverge on migration SQL, the pre-2026-08-28 SQLite migration
+// history under prisma/migrations/ is not applied on this datasource - the
+// production database was created fresh via `prisma db push` instead.
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
