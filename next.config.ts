@@ -34,6 +34,15 @@ const nextConfig: NextConfig = {
   // only single-digit seconds either way.
   experimental: {
     cpus: 1,
+    // This is the actual fix for the "spawn .../node EAGAIN" crash seen
+    // on this host during `next build` (traced to next/dist/build/index.js:
+    // by default, with no custom `webpack()` config, Next.js runs the
+    // webpack compile step in a separate child process via jest-worker
+    // regardless of `cpus`, which only governs the *static-generation*
+    // worker pool, a different code path). Forcing it off keeps
+    // compilation in the main process, so nothing tries to spawn a node
+    // subprocess the container's process/thread ceiling then rejects.
+    webpackBuildWorker: false,
   },
   async headers() {
     return [
