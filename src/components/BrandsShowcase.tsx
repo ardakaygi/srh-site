@@ -69,7 +69,7 @@ export function BrandsShowcase({ brands }: { brands: BrandView[] }) {
                         alt={brand.name}
                         width={100}
                         height={36}
-                        className="max-h-9 w-auto object-contain"
+                        className="h-9 w-auto object-contain"
                       />
                     )}
                   </span>

@@ -44,6 +44,12 @@ yarn-error.log*
 # directory, same caveat as the SQLite db above.
 /public/uploads/
 
+# abandoned PHP/MySQL rewrite (2026-08-28) - kept on disk as reference, not
+# part of the deployed Next.js app; excluded so it never gets swept into a
+# commit by a future `git add -A`.
+/php-site/
+/scripts/export-seed-json.ts
+
 # vercel
 .vercel
 

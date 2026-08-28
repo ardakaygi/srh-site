@@ -61,7 +61,7 @@ export function BrandsMegaMenu({
                           alt={brand.name}
                           width={90}
                           height={32}
-                          className="max-h-8 w-auto object-contain"
+                          className="h-8 w-auto object-contain"
                         />
                       )}
                     </span>

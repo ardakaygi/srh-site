@@ -110,7 +110,7 @@ export default async function TelifVeMarkaBildirimiPage() {
               alt="SRH Samsun Robot Hastanesi marka örneği"
               width={120}
               height={64}
-              className="max-h-16 w-auto object-contain"
+              className="h-16 w-auto object-contain"
             />
           </span>
           <dl className="grid flex-1 grid-cols-1 gap-x-4 gap-y-2 text-sm sm:grid-cols-2">
@@ -157,7 +157,7 @@ export default async function TelifVeMarkaBildirimiPage() {
                   alt={brand.name}
                   width={100}
                   height={36}
-                  className="max-h-9 w-auto object-contain"
+                  className="h-9 w-auto object-contain"
                 />
               </span>
               <p className="m-0 text-sm text-slate-600">
