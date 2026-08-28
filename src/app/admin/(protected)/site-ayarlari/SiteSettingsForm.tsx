@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { SITE_SETTINGS_SCHEMA } from "@/lib/siteSettings";
+import { SITE_SETTINGS_SCHEMA } from "@/lib/siteSettingsSchema";
 import { updateSiteSettingsAction, type SiteSettingsFormState } from "./actions";
 
 const initialState: SiteSettingsFormState = {};
