@@ -4,7 +4,8 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { getAllProvinces } from "@/lib/data";
 import { ilMarkaSlug } from "@/lib/slugs";
 
-export const revalidate = 3600;
+// force-dynamic instead of ISR/revalidate - see src/app/page.tsx's comment.
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Hizmet Bölgeleri",

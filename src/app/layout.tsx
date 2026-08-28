@@ -17,6 +17,18 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Forces every route in the app to render dynamically (per-request),
+// never during `next build` (2026-08-28) - Header/Footer are async Server
+// Components that call Prisma (getAllBrands/getSiteSettings) on every
+// page via this root layout, and the production host's container can't
+// run Prisma's native query engine during the build (see decisions.md
+// and src/app/[slug]/page.tsx's comment). This single setting is what
+// actually guarantees no page anywhere touches the database at build
+// time - the per-page `dynamic`/removed-generateStaticParams changes
+// elsewhere in the app are redundant with this but kept as accurate
+// self-documentation for those specific routes.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
   title: {

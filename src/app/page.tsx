@@ -43,7 +43,11 @@ const coverageChecklist = [
   "Onarım Sonrası Güvenli Teslim",
 ];
 
-export const revalidate = 3600;
+// force-dynamic instead of ISR/revalidate (2026-08-28): the production
+// host's container can't run Prisma during `next build` (native engine
+// panics - see decisions.md and src/app/[slug]/page.tsx's comment).
+// Rendered fresh on every request instead of cached/pre-rendered.
+export const dynamic = "force-dynamic";
 
 const heroChecklist = ["Orijinal Yedek Parça", "Uzman Teknik Ekip", siteConfig.warrantyLabel];
 

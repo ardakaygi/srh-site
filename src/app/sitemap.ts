@@ -3,7 +3,8 @@ import { getAllBlogPosts, getAllBrands, getAllModelsWithBrand, getAllProvinces }
 import { ilMarkaSlug, modelFullSlug } from "@/lib/slugs";
 import { siteConfig } from "@/lib/site-config";
 
-export const revalidate = 3600;
+// force-dynamic instead of ISR/revalidate - see src/app/page.tsx's comment.
+export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [provinces, brands, models, blogPosts] = await Promise.all([

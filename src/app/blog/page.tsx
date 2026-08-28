@@ -4,7 +4,8 @@ import { BlogCoverImage } from "@/components/BlogCoverImage";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { getAllBlogPosts } from "@/lib/data";
 
-export const revalidate = 3600;
+// force-dynamic instead of ISR/revalidate - see src/app/page.tsx's comment.
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Blog",

@@ -6,7 +6,8 @@ import { getAllFaqItems } from "@/lib/data";
 import { faqPageNode } from "@/lib/schema";
 import { siteConfig } from "@/lib/site-config";
 
-export const revalidate = 3600;
+// force-dynamic instead of ISR/revalidate - see src/app/page.tsx's comment.
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Sık Sorulan Sorular",
