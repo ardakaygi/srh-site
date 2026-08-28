@@ -43,6 +43,13 @@ const nextConfig: NextConfig = {
     // compilation in the main process, so nothing tries to spawn a node
     // subprocess the container's process/thread ceiling then rejects.
     webpackBuildWorker: false,
+    // Same root cause, different spawn: this Next.js version's default
+    // type-checking step shells out to the project-local `tsc` CLI as a
+    // subprocess (`spawn .../typescript/bin/tsc --showConfig ...`), which
+    // the host also rejects. `false` switches back to the TypeScript
+    // JS compiler API in-process - type-checking still runs and still
+    // fails the build on real errors, it just never spawns anything.
+    useTypeScriptCli: false,
   },
   async headers() {
     return [
