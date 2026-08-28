@@ -10,6 +10,13 @@
 
 **Yanlış pozitif olarak elenen bulgu:** `/code-review`'in "`package.json`'daki `allowScripts` alanı geçersiz/etkisiz" iddiası — bu oturumda bizzat çalıştırılıp doğrulandı (npm 11.19.0'ın gerçek `install-scripts` özelliği; onay öncesi postinstall script'leri gerçekten engelliyor, onay sonrası çalışıyor). Aksiyon alınmadı.
 
+## Admin panel (2026-08-28) — bilinçli kapsam dışı bırakılanlar
+
+- **Tek admin şifresi, kullanıcı adı yok.** Birden fazla personelin ayrı hesapla giriş yapması gerekirse gerçek bir auth kütüphanesine (ör. Auth.js) geçilmeli — kullanıcı "basit şifre" seçeneğini onayladı.
+- **Giriş formunda rate limiting/brute-force koruması yok.** Şifre karşılaştırması `timingSafeEqual` ile zamanlama saldırısına karşı korunuyor, ama art arda deneme sayısını sınırlayan bir mekanizma yok. Gerçek yayın öncesi eklenmeli.
+- **"Gerçek bir CMS gibi her metin/görsel" hedefi kısmi karşılandı.** Servis talepleri, markalar, iller, modeller, blog ve SSS artık tamamen admin panelden yönetiliyor (Prisma tablolarına taşındı). Ana sayfadaki hero/CTA metinlerinin bir kısmı da `SiteSetting` tablosu üzerinden düzenlenebilir. Ancak site genelindeki her metin (header/footer düzeni, sabit sayfa kopyası — Kurumsal, Tamir Merkezi, Yasal Uyarı vb. — ve `site-config.ts`'teki temel işletme bilgileri: telefon/adres/e-posta) hâlâ koda gömülü; bunları da admin'den düzenlenebilir yapmak, `siteConfig`'in senkron olarak import edildiği birçok client component'i (MobileNav, ServiceRequestForm, BrandsMegaMenu vb.) yeniden düzenlemeyi gerektiren ayrı, daha büyük bir iş.
+- **Blog kapak görseli seçimi 5 sabit dosyayla sınırlı** (`public/blog-covers/`); admin panelden yeni görsel yüklenemiyor, sadece mevcut 5 fotoğraftan seçilebiliyor.
+
 ## Kapsamlı, henüz çözülmemiş
 
 - **CSP `script-src`/`style-src` içinde `'unsafe-inline'` var.** Nonce tabanlı CSP, statik/ISR üretimini kıracağı için bilinçli olarak tercih edilmedi (bkz. `decisions.md`). Bu, XSS'e karşı savunmayı zayıflatan gerçek bir artık risktir. Gelecekte Next.js'in deneysel Subresource Integrity (SRI) desteği (`experimental.sri`) statik üretimi koruyarak daha güçlü bir CSP sağlayabilir — araştırıldı ama bu milestone'da uygulanmadı.

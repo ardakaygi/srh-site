@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { BlogCoverImage } from "@/components/BlogCoverImage";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { BLOG_POSTS } from "@/lib/blogPosts";
+import { getAllBlogPosts } from "@/lib/data";
+
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -10,16 +12,16 @@ export const metadata: Metadata = {
     "Robot süpürge bakımı, arıza tespiti ve onarımı hakkında pratik bilgiler ve rehberler.",
 };
 
-function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("tr-TR", {
+function formatDate(date: Date): string {
+  return date.toLocaleDateString("tr-TR", {
     day: "numeric",
     month: "long",
     year: "numeric",
   });
 }
 
-export default function BlogIndexPage() {
-  const posts = [...BLOG_POSTS].sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
+export default async function BlogIndexPage() {
+  const posts = await getAllBlogPosts();
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">

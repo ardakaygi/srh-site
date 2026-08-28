@@ -4,14 +4,15 @@ import { notFound } from "next/navigation";
 import { BlogCoverImage } from "@/components/BlogCoverImage";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
-import { BLOG_POSTS } from "@/lib/blogPosts";
+import { getAllBlogPosts, getBlogPostBySlug } from "@/lib/data";
 import { articleNode } from "@/lib/schema";
 import { siteConfig } from "@/lib/site-config";
 
 export const revalidate = 3600;
 
-export function generateStaticParams() {
-  return BLOG_POSTS.map((post) => ({ slug: post.slug }));
+export async function generateStaticParams() {
+  const posts = await getAllBlogPosts();
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
@@ -20,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = BLOG_POSTS.find((p) => p.slug === slug);
+  const post = await getBlogPostBySlug(slug);
   if (!post) return {};
   return {
     title: post.title,
@@ -28,8 +29,8 @@ export async function generateMetadata({
   };
 }
 
-function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("tr-TR", {
+function formatDate(date: Date): string {
+  return date.toLocaleDateString("tr-TR", {
     day: "numeric",
     month: "long",
     year: "numeric",
@@ -42,7 +43,7 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = BLOG_POSTS.find((p) => p.slug === slug);
+  const post = await getBlogPostBySlug(slug);
   if (!post) notFound();
 
   const jsonLd = {
@@ -51,7 +52,7 @@ export default async function BlogPostPage({
       articleNode({
         headline: post.title,
         description: post.excerpt,
-        datePublished: post.publishedAt,
+        datePublished: post.publishedAt.toISOString(),
         url: `${siteConfig.siteUrl}/blog/${post.slug}`,
       }),
     ],

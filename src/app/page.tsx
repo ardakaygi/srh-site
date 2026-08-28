@@ -8,6 +8,7 @@ import { ServiceProcessSection } from "@/components/ServiceProcessSection";
 import { TestCalibrationSection } from "@/components/TestCalibrationSection";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { getAllBrands, getAllProvinces } from "@/lib/data";
+import { getSiteSettings } from "@/lib/siteSettings";
 import { siteConfig } from "@/lib/site-config";
 import {
   BatteryIcon,
@@ -45,14 +46,6 @@ const coverageChecklist = [
 export const revalidate = 3600;
 
 const heroChecklist = ["Orijinal Yedek Parça", "Uzman Teknik Ekip", siteConfig.warrantyLabel];
-
-const rotatingFaults = [
-  "Şarj Almıyorsa",
-  "LiDAR Hatası Veriyorsa",
-  "Haritalama Yapmıyorsa",
-  "Mop Çalışmıyorsa",
-  "Bağlantı Kurmuyorsa",
-];
 
 function CheckIcon({ className = "h-5 w-5" }: { className?: string }) {
   return (
@@ -142,10 +135,12 @@ const serviceCategories = [
 ];
 
 export default async function HomePage() {
-  const [allBrands, allProvinces] = await Promise.all([
+  const [allBrands, allProvinces, settings] = await Promise.all([
     getAllBrands(),
     getAllProvinces(),
+    getSiteSettings(),
   ]);
+  const rotatingFaults = settings.hero_rotating_phrases;
 
   return (
     <div>
@@ -159,7 +154,7 @@ export default async function HomePage() {
           {/* Left: copy */}
           <div className="min-w-0 text-center lg:text-left">
             <span className="animate-fade-up inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-brand-800">
-              Samsun&apos;dan Türkiye&apos;nin 81 iline
+              {settings.hero_eyebrow}
             </span>
 
             <h1 className="animate-fade-up mt-5 max-w-full text-3xl font-extrabold leading-[1.2] tracking-tight text-slate-900 [animation-delay:100ms] sm:text-4xl lg:text-5xl lg:leading-[1.15]">
@@ -175,17 +170,13 @@ export default async function HomePage() {
                   </span>
                 ))}
               </span>
-              <span className="sr-only">
-                Şarj almıyorsa, LiDAR hatası veriyorsa, haritalama yapmıyorsa,
-                mop çalışmıyorsa veya bağlantı kurmuyorsa
-              </span>
+              <span className="sr-only">{rotatingFaults.join(", ")}</span>
               <br />
               Samsun Robot Hastanesi&apos;ne
             </h1>
 
             <p className="animate-fade-up mx-auto mt-5 max-w-md text-lg text-slate-600 [animation-delay:200ms] lg:mx-0">
-              Tüm marka ve modeller için arıza tespiti, onarım, yedek parça ve
-              özel batarya yenileme hizmeti sunuyoruz.
+              {settings.hero_description}
             </p>
 
             <ul className="animate-fade-up mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 [animation-delay:300ms] lg:justify-start">
@@ -348,12 +339,9 @@ export default async function HomePage() {
       <section className="bg-brand-800 px-4 py-14 text-center text-white">
         <div className="mx-auto max-w-2xl">
           <h2 className="text-2xl font-bold">
-            {siteConfig.businessName} Farkını Yaşayın
+            {settings.cta_title.replace("{businessName}", siteConfig.businessName)}
           </h2>
-          <p className="mt-3 text-brand-50">
-            Cihazınızı adresinizden gönderin, ücretsiz arıza tespiti sonrası
-            onayınızı alarak onarıma başlayalım.
-          </p>
+          <p className="mt-3 text-brand-50">{settings.cta_description}</p>
           <Link
             href="/servis-talep"
             className="mt-6 inline-block rounded-full bg-white px-6 py-3 text-sm font-semibold text-brand-800 transition-colors hover:bg-brand-50"

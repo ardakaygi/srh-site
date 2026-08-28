@@ -1,6 +1,74 @@
 import { prisma } from "@/lib/prisma";
 import type { Brand, Model, Province } from "@prisma/client";
 
+// --- BlogPost ---
+
+export interface BlogSection {
+  heading: string;
+  body: string;
+}
+
+export interface BlogPostView {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  coverImage: string;
+  publishedAt: Date;
+  readMinutes: number;
+  sections: BlogSection[];
+}
+
+function toBlogPostView(p: {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  coverImage: string;
+  publishedAt: Date;
+  readMinutes: number;
+  sectionsJson: string;
+}): BlogPostView {
+  return {
+    id: p.id,
+    slug: p.slug,
+    title: p.title,
+    excerpt: p.excerpt,
+    category: p.category,
+    coverImage: p.coverImage,
+    publishedAt: p.publishedAt,
+    readMinutes: p.readMinutes,
+    sections: JSON.parse(p.sectionsJson) as BlogSection[],
+  };
+}
+
+export async function getAllBlogPosts(): Promise<BlogPostView[]> {
+  const rows = await prisma.blogPost.findMany({ orderBy: { publishedAt: "desc" } });
+  return rows.map(toBlogPostView);
+}
+
+export async function getBlogPostBySlug(slug: string): Promise<BlogPostView | null> {
+  const row = await prisma.blogPost.findUnique({ where: { slug } });
+  return row ? toBlogPostView(row) : null;
+}
+
+// --- FaqItem ---
+
+export interface FaqItemView {
+  id: string;
+  question: string;
+  answer: string;
+}
+
+export async function getAllFaqItems(): Promise<FaqItemView[]> {
+  return prisma.faqItem.findMany({
+    orderBy: { sortOrder: "asc" },
+    select: { id: true, question: true, answer: true },
+  });
+}
+
 export interface FaqItem {
   question: string;
   answer: string;

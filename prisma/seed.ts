@@ -18,6 +18,8 @@ import { PrismaClient } from "@prisma/client";
 import { PROVINCES } from "./data/provinces";
 import { EXTRA_BRANDS } from "./data/brands";
 import { EXTRA_MODELS } from "./data/models";
+import { BLOG_POSTS } from "./data/blogPosts";
+import { FAQ_ITEMS } from "./data/faq";
 
 const prisma = new PrismaClient();
 
@@ -27,6 +29,8 @@ async function main() {
   await prisma.model.deleteMany();
   await prisma.brand.deleteMany();
   await prisma.province.deleteMany();
+  await prisma.blogPost.deleteMany();
+  await prisma.faqItem.deleteMany();
 
   const brands = await Promise.all([
     prisma.brand.create({
@@ -225,13 +229,32 @@ async function main() {
 
   await prisma.province.createMany({ data: PROVINCES });
 
+  await prisma.blogPost.createMany({
+    data: BLOG_POSTS.map((p) => ({
+      slug: p.slug,
+      title: p.title,
+      excerpt: p.excerpt,
+      category: p.category,
+      coverImage: p.coverImage,
+      publishedAt: new Date(p.publishedAt),
+      readMinutes: p.readMinutes,
+      sectionsJson: JSON.stringify(p.sections),
+    })),
+  });
+
+  await prisma.faqItem.createMany({ data: FAQ_ITEMS });
+
   const totalBrands = await prisma.brand.count();
   const totalModels = await prisma.model.count();
   const totalProvinces = await prisma.province.count();
+  const totalBlogPosts = await prisma.blogPost.count();
+  const totalFaqItems = await prisma.faqItem.count();
   console.log("Seed tamamlandı:", {
     brands: totalBrands,
     models: totalModels,
     provinces: totalProvinces,
+    blogPosts: totalBlogPosts,
+    faqItems: totalFaqItems,
   });
 }
 

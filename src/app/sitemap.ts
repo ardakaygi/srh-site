@@ -1,16 +1,16 @@
 import type { MetadataRoute } from "next";
-import { getAllBrands, getAllModelsWithBrand, getAllProvinces } from "@/lib/data";
-import { BLOG_POSTS } from "@/lib/blogPosts";
+import { getAllBlogPosts, getAllBrands, getAllModelsWithBrand, getAllProvinces } from "@/lib/data";
 import { ilMarkaSlug, modelFullSlug } from "@/lib/slugs";
 import { siteConfig } from "@/lib/site-config";
 
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [provinces, brands, models] = await Promise.all([
+  const [provinces, brands, models, blogPosts] = await Promise.all([
     getAllProvinces(),
     getAllBrands(),
     getAllModelsWithBrand(),
+    getAllBlogPosts(),
   ]);
 
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -30,7 +30,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteConfig.siteUrl}/blog`, changeFrequency: "weekly", priority: 0.6 },
   ];
 
-  const blogRoutes: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
+  const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${siteConfig.siteUrl}/blog/${post.slug}`,
     lastModified: post.publishedAt,
     changeFrequency: "yearly",

@@ -67,6 +67,45 @@ model Model {
   @@unique([brandId, slug])
 }
 
+// Blog post, editable from /admin/blog. Migrated from the static
+// src/lib/blogPosts.ts array (2026-08-28) so content editors don't need a
+// code deploy to publish/edit a post - see decisions.md.
+model BlogPost {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  title         String
+  excerpt       String
+  category      String
+  coverImage    String
+  publishedAt   DateTime
+  readMinutes   Int
+  sectionsJson  String // JSON-encoded {heading, body}[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// General FAQ shown on /sss, editable from /admin/sss. Migrated from a
+// hardcoded array in src/app/sss/page.tsx (2026-08-28).
+model FaqItem {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Small, explicit set of editable marketing-copy strings (NOT a generic
+// freeform CMS - only keys the admin UI and site code both know about are
+// meaningful). Value is plain text, or JSON-encoded when isJson is true
+// (e.g. the rotating hero phrases array). See src/lib/siteSettings.ts.
+model SiteSetting {
+  key       String   @id
+  value     String
+  isJson    Boolean  @default(false)
+  updatedAt DateTime @updatedAt
+}
+
 enum ServiceRequestStatus {
   RECEIVED
   DIAGNOSED

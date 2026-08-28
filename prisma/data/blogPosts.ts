@@ -1,17 +1,23 @@
 /**
- * Blog içerikleri: robot süpürge bakım/onarım konularında genel, doğrulanabilir
+ * Seed data for the BlogPost table (2026-08-28: migrated from a static
+ * src/lib/blogPosts.ts array to the database so posts are editable from
+ * /admin/blog without a code deploy - see decisions.md). This file is
+ * only read by prisma/seed.ts now; edit posts via the admin panel or
+ * Prisma Studio afterwards, not here.
+ *
+ * Content: robot süpürge bakım/onarım konularında genel, doğrulanabilir
  * teknik bilgi (marka faaliyetleri sayfalarındaki aynı teknik gerçeklerle
  * tutarlı - LiDAR, batarya, anakart vb.). İşletmeye özgü iddialar (fiyat,
  * süre, rakam) içermez; sadece genel bakım/onarım bilgisi ve site içi
  * yönlendirme amaçlıdır.
  */
 
-export interface BlogSection {
+export interface BlogSectionSeed {
   heading: string;
   body: string;
 }
 
-export interface BlogPost {
+export interface BlogPostSeed {
   slug: string;
   coverImage: string;
   title: string;
@@ -19,10 +25,10 @@ export interface BlogPost {
   category: string;
   publishedAt: string; // ISO date
   readMinutes: number;
-  sections: BlogSection[];
+  sections: BlogSectionSeed[];
 }
 
-export const BLOG_POSTS: BlogPost[] = [
+export const BLOG_POSTS: BlogPostSeed[] = [
   {
     slug: "robot-supurge-omrunu-uzatmanin-10-yolu",
     coverImage: "/blog-covers/brush.jpg",
