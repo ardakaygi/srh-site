@@ -1,22 +1,19 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAllBrands, getAllProvinces, getBrandBySlug, getProvinceBySlug } from "@/lib/data";
+import { getBrandBySlug, getProvinceBySlug } from "@/lib/data";
 import { stripIlMarkaSuffix, ilMarkaSlug } from "@/lib/slugs";
 import { ProvincePageContent } from "@/components/pseo/ProvincePageContent";
 import { BrandPageContent } from "@/components/pseo/BrandPageContent";
 
 export const revalidate = 3600;
 
-export async function generateStaticParams() {
-  const [provinces, brands] = await Promise.all([
-    getAllProvinces(),
-    getAllBrands(),
-  ]);
-  return [
-    ...provinces.map((p) => ({ slug: ilMarkaSlug(p.slug) })),
-    ...brands.map((b) => ({ slug: ilMarkaSlug(b.slug) })),
-  ];
-}
+// No generateStaticParams here on purpose (2026-08-28): the production
+// host's container can't reliably run Prisma's native query engine during
+// `next build` (its Rust/tokio runtime panics with "timer has gone away"
+// under the container's CPU throttling - see decisions.md). Pages render
+// on first request instead and are then cached for `revalidate` seconds,
+// same end result as ISR pre-rendering, just computed on-demand rather
+// than at build time.
 
 async function resolveEntity(slug: string) {
   const baseSlug = stripIlMarkaSuffix(slug);

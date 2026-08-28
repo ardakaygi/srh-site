@@ -1,17 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAllModelsWithBrand, getModelByFullSlug } from "@/lib/data";
-import { modelFullSlug } from "@/lib/slugs";
+import { getModelByFullSlug } from "@/lib/data";
 import { ModelPageContent } from "@/components/pseo/ModelPageContent";
 
 export const revalidate = 3600;
 
-export async function generateStaticParams() {
-  const models = await getAllModelsWithBrand();
-  return models.map((m) => ({
-    modelSlug: modelFullSlug(m.brand.slug, m.slug),
-  }));
-}
+// No generateStaticParams here on purpose - see src/app/[slug]/page.tsx's
+// comment (Prisma's native engine can't run reliably during `next build`
+// on this host's container). Rendered on first request, then cached.
 
 export async function generateMetadata({
   params,

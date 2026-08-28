@@ -4,16 +4,15 @@ import { notFound } from "next/navigation";
 import { BlogCoverImage } from "@/components/BlogCoverImage";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
-import { getAllBlogPosts, getBlogPostBySlug } from "@/lib/data";
+import { getBlogPostBySlug } from "@/lib/data";
 import { articleNode } from "@/lib/schema";
 import { siteConfig } from "@/lib/site-config";
 
 export const revalidate = 3600;
 
-export async function generateStaticParams() {
-  const posts = await getAllBlogPosts();
-  return posts.map((post) => ({ slug: post.slug }));
-}
+// No generateStaticParams here on purpose - see src/app/[slug]/page.tsx's
+// comment (Prisma's native engine can't run reliably during `next build`
+// on this host's container). Rendered on first request, then cached.
 
 export async function generateMetadata({
   params,
