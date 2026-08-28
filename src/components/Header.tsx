@@ -5,6 +5,7 @@ import { MobileNav } from "@/components/MobileNav";
 import { NavDropdown } from "@/components/NavDropdown";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { getAllBrands } from "@/lib/data";
+import { getSiteSettings } from "@/lib/siteSettings";
 import { siteConfig } from "@/lib/site-config";
 
 const beforeBrandsNav = [
@@ -18,8 +19,6 @@ const kurumsalDropdownItems = [
   { href: "/sss", label: "Sık Sorulan Sorular" },
   { href: "/iletisim", label: "İletişim" },
 ];
-
-const POPULAR_BRAND_SLUGS = ["roborock", "xiaomi", "samsung", "dreame", "ecovacs", "irobot"];
 
 function PhoneIcon() {
   return (
@@ -50,11 +49,11 @@ function TicketIcon() {
 }
 
 export async function Header() {
-  const allBrands = await getAllBrands();
-  const popularBrands = POPULAR_BRAND_SLUGS.map((slug) => allBrands.find((b) => b.slug === slug)).filter(
-    (b): b is NonNullable<typeof b> => Boolean(b),
-  );
-  const otherBrands = allBrands.filter((b) => !POPULAR_BRAND_SLUGS.includes(b.slug)).slice(0, 12);
+  const [allBrands, settings] = await Promise.all([getAllBrands(), getSiteSettings()]);
+  // "Popüler" = has an admin-uploaded logo (see /admin/markalar) - a new
+  // logo automatically promotes a brand here, no hardcoded slug list.
+  const popularBrands = allBrands.filter((b) => b.logoUrl);
+  const otherBrands = allBrands.filter((b) => !b.logoUrl).slice(0, 12);
 
   return (
     <header className="sticky top-0 z-40 bg-white shadow-sm">
@@ -62,9 +61,7 @@ export async function Header() {
           two-tier structure. Hidden on small screens to save vertical space. */}
       <div className="hidden bg-brand-900 text-white md:block">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2 text-xs">
-          <p className="font-medium text-brand-50">
-            Karadeniz&apos;in En Kapsamlı Robot Süpürge Tamir Merkezi
-          </p>
+          <p className="font-medium text-brand-50">{settings.brand_tagline}</p>
           <div className="flex items-center gap-5">
             <a href={siteConfig.phoneHref} className="flex items-center gap-1.5 hover:text-brand-100">
               <PhoneIcon />

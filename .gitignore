@@ -39,6 +39,11 @@ yarn-error.log*
 /prisma/*.db
 /prisma/*.db-journal
 
+# admin-uploaded images (src/lib/imageUpload.ts) - runtime content, not
+# source; production needs a persistent volume/object storage for this
+# directory, same caveat as the SQLite db above.
+/public/uploads/
+
 # vercel
 .vercel
 

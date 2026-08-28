@@ -26,8 +26,26 @@ export function BlogPostForm({
   const [state, formAction, isPending] = useActionState(upsertBlogPostAction, initialState);
 
   return (
-    <form action={formAction} className="space-y-6">
+    <form action={formAction} encType="multipart/form-data" className="space-y-6">
       <input type="hidden" name="id" value={id} />
+
+      <div className="rounded-lg border border-slate-200 p-4">
+        <label className="block text-sm font-medium text-slate-700">Kapak Görseli</label>
+        <div className="mt-2 flex items-center gap-3">
+          {/* eslint-disable-next-line @next/next/no-img-element -- admin-only preview of an arbitrary uploaded path */}
+          <img src={initial.coverImage} alt="" className="h-16 w-24 rounded object-cover" />
+          <p className="text-xs text-slate-400">Mevcut kapak görseli</p>
+        </div>
+        <input
+          type="file"
+          name="coverImageFile"
+          accept="image/png,image/jpeg,image/webp"
+          className="mt-2 block text-sm"
+        />
+        <p className="mt-1 text-xs text-slate-400">
+          Yeni bir görsel yüklerseniz aşağıdaki hazır seçim yok sayılır.
+        </p>
+      </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
@@ -61,7 +79,9 @@ export function BlogPostForm({
           />
         </div>
         <div>
-          <label htmlFor="coverImage" className="block text-sm font-medium text-slate-700">Kapak Görseli *</label>
+          <label htmlFor="coverImage" className="block text-sm font-medium text-slate-700">
+            Hazır Kapak Görseli <span className="font-normal text-slate-400">(yeni yüklemediyseniz)</span>
+          </label>
           <select
             id="coverImage"
             name="coverImage"

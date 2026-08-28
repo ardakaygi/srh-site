@@ -1,13 +1,9 @@
-import { siteConfig } from "@/lib/site-config";
+import { getSiteSettings } from "@/lib/siteSettings";
 
-const badges = [
-  "Ücretsiz Arıza Tespiti",
-  "Orijinal Yedek Parça",
-  siteConfig.warrantyLabel,
-  "Anlaşmalı Kargo",
-];
+export async function TrustBadges() {
+  const settings = await getSiteSettings();
+  const badges = settings.trust_badges as unknown as string[];
 
-export function TrustBadges() {
   return (
     <ul className="flex flex-wrap justify-center gap-3 text-sm">
       {badges.map((badge) => (

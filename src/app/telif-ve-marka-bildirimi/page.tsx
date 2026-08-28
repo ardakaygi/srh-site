@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { BRAND_LOGO_MAP } from "@/lib/brandLogos";
-import { getAllBrands } from "@/lib/data";
-import { PROVINCE_LANDMARKS } from "@/lib/provinceLandmarks";
+import { getAllBrands, getAllProvinces } from "@/lib/data";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -12,52 +10,32 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 
-// Per-brand license/source detail for the logos actually shown on the site.
-// Every entry here must correspond to a real, downloaded file in
-// public/brand-logos/ — see decisions.md for the sourcing history.
-const logoCredits = [
-  {
-    slug: "roborock",
-    name: "Roborock",
-    note: "Metin ve basit şekilden oluşan logo, orijinallik eşiğinin altında kabul edilir; kaynak Wikimedia Commons.",
-  },
-  {
-    slug: "xiaomi",
-    name: "Xiaomi",
-    note: "Metin ve basit şekilden oluşan logo, orijinallik eşiğinin altında kabul edilir; kaynak Wikimedia Commons.",
-  },
-  {
-    slug: "samsung",
-    name: "Samsung",
-    note: "Metin ve basit şekilden oluşan logo, orijinallik eşiğinin altında kabul edilir; kaynak Wikimedia Commons.",
-  },
-  {
-    slug: "irobot",
-    name: "iRobot",
-    note: "Metin ve basit şekilden oluşan logo, orijinallik eşiğinin altında kabul edilir; kaynak Wikimedia Commons.",
-  },
-  {
-    slug: "ecovacs",
-    name: "Ecovacs",
-    note: "Metin ve basit şekilden oluşan logo, orijinallik eşiğinin altında kabul edilir; kaynak Wikimedia Commons.",
-  },
-  {
-    slug: "dreame",
-    name: "Dreame",
-    note: (
-      <>
-        CC BY-SA 4.0 lisansı altında,{" "}
-        <a
-          href="https://commons.wikimedia.org/wiki/File:Logo_of_Dreame.svg"
-          className="font-semibold text-brand-700 hover:underline"
-        >
-          Wikimedia Commons
-        </a>{" "}
-        üzerinden, Dreame Technology atfıyla kullanılmaktadır.
-      </>
-    ),
-  },
-];
+// License/source detail for the 6 logos sourced and verified in this
+// project's early sessions (public/brand-logos/ — see decisions.md). A
+// brand with a logoUrl not listed here was added later via /admin/markalar;
+// its license has not been independently verified by this codebase, which
+// the fallback note below says plainly rather than implying it was checked.
+const KNOWN_LOGO_NOTES: Record<string, React.ReactNode> = {
+  roborock: "Metin ve basit şekilden oluşan logo, orijinallik eşiğinin altında kabul edilir; kaynak Wikimedia Commons.",
+  xiaomi: "Metin ve basit şekilden oluşan logo, orijinallik eşiğinin altında kabul edilir; kaynak Wikimedia Commons.",
+  samsung: "Metin ve basit şekilden oluşan logo, orijinallik eşiğinin altında kabul edilir; kaynak Wikimedia Commons.",
+  irobot: "Metin ve basit şekilden oluşan logo, orijinallik eşiğinin altında kabul edilir; kaynak Wikimedia Commons.",
+  ecovacs: "Metin ve basit şekilden oluşan logo, orijinallik eşiğinin altında kabul edilir; kaynak Wikimedia Commons.",
+  dreame: (
+    <>
+      CC BY-SA 4.0 lisansı altında,{" "}
+      <a
+        href="https://commons.wikimedia.org/wiki/File:Logo_of_Dreame.svg"
+        className="font-semibold text-brand-700 hover:underline"
+      >
+        Wikimedia Commons
+      </a>{" "}
+      üzerinden, Dreame Technology atfıyla kullanılmaktadır.
+    </>
+  ),
+};
+const FALLBACK_LOGO_NOTE =
+  "Bu logo yönetim panelinden yüklenmiştir; kaynak/lisans bilgisi bu sayfada henüz ayrıca belgelenmemiştir.";
 
 // Every src here must correspond to a real, downloaded file in
 // public/blog-covers/ — see decisions.md for the sourcing history.
@@ -90,9 +68,10 @@ const BLOG_COVER_CREDITS = [
 ];
 
 export default async function TelifVeMarkaBildirimiPage() {
-  const brands = await getAllBrands();
-  const logoSlugSet = new Set(logoCredits.map((c) => c.slug));
-  const textOnlyBrands = brands.filter((b) => !logoSlugSet.has(b.slug));
+  const [brands, provinces] = await Promise.all([getAllBrands(), getAllProvinces()]);
+  const brandsWithLogo = brands.filter((b) => b.logoUrl);
+  const textOnlyBrands = brands.filter((b) => !b.logoUrl);
+  const provincesWithLandmark = provinces.filter((p) => p.landmarkImage);
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
@@ -167,21 +146,23 @@ export default async function TelifVeMarkaBildirimiPage() {
         </p>
 
         <ul className="not-prose mt-4 space-y-4">
-          {logoCredits.map((credit) => (
+          {brandsWithLogo.map((brand) => (
             <li
-              key={credit.slug}
+              key={brand.slug}
               className="flex flex-col gap-3 rounded-xl border border-slate-200 p-4 sm:flex-row sm:items-center"
             >
               <span className="flex h-9 w-28 shrink-0 items-center justify-center">
                 <Image
-                  src={BRAND_LOGO_MAP[credit.slug]}
-                  alt={credit.name}
+                  src={brand.logoUrl!}
+                  alt={brand.name}
                   width={100}
                   height={36}
                   className="max-h-9 w-auto object-contain"
                 />
               </span>
-              <p className="m-0 text-sm text-slate-600">{credit.note}</p>
+              <p className="m-0 text-sm text-slate-600">
+                {KNOWN_LOGO_NOTES[brand.slug] ?? FALLBACK_LOGO_NOTE}
+              </p>
             </li>
           ))}
         </ul>
@@ -213,16 +194,15 @@ export default async function TelifVeMarkaBildirimiPage() {
         <h2>İl Sayfası Fotoğrafları</h2>
         <p>
           Bazı il sayfalarında, o ile özgü gerçek bir simge yapı/anıt
-          fotoğrafı gösterilmektedir. Tamamı Wikimedia Commons kaynaklı ve
-          lisansı doğrulanmıştır:
+          fotoğrafı gösterilmektedir (yönetim panelinden eklenebilir):
         </p>
         <ul className="not-prose mt-4 grid gap-2 text-sm text-slate-600 sm:grid-cols-2">
-          {Object.entries(PROVINCE_LANDMARKS).map(([slug, landmark]) => (
-            <li key={slug} className="rounded-lg border border-slate-200 p-3">
+          {provincesWithLandmark.map((p) => (
+            <li key={p.slug} className="rounded-lg border border-slate-200 p-3">
               <span className="block font-semibold text-slate-800">
-                {landmark.alt}
+                {p.landmarkAlt ?? p.name}
               </span>
-              {landmark.credit}
+              {p.landmarkCredit ?? "Kaynak belirtilmemiş"}
             </li>
           ))}
         </ul>

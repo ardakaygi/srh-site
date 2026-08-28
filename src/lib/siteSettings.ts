@@ -10,6 +10,16 @@ import { prisma } from "@/lib/prisma";
  * to "unset"), the site falls back to these rather than rendering blank.
  */
 export const SITE_SETTINGS_SCHEMA = {
+  brand_tagline: {
+    label: "Marka sloganı (header üst çubuğu + footer'da gösterilir)",
+    isJson: false,
+    default: "Karadeniz'in En Kapsamlı Robot Süpürge Tamir Merkezi",
+  },
+  trust_badges: {
+    label: "Güven rozetleri (her satıra bir tane)",
+    isJson: true,
+    default: ["Ücretsiz Arıza Tespiti", "Orijinal Yedek Parça", "6 Ay Garanti", "Anlaşmalı Kargo"],
+  },
   hero_eyebrow: {
     label: "Ana sayfa üst rozet yazısı",
     isJson: false,

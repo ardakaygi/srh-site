@@ -15,6 +15,7 @@ export function BrandForm({
     slug: string;
     name: string;
     intro: string;
+    logoUrl: string | null;
     faults: { a: string; b: string }[];
     faq: { a: string; b: string }[];
   };
@@ -22,8 +23,31 @@ export function BrandForm({
   const [state, formAction, isPending] = useActionState(upsertBrandAction, initialState);
 
   return (
-    <form action={formAction} className="space-y-6">
+    <form action={formAction} encType="multipart/form-data" className="space-y-6">
       <input type="hidden" name="id" value={id} />
+
+      <div>
+        <label className="block text-sm font-medium text-slate-700">Marka Logosu</label>
+        {initial.logoUrl && (
+          <div className="mt-2 flex items-center gap-3">
+            {/* eslint-disable-next-line @next/next/no-img-element -- admin-only preview of an arbitrary uploaded path, next/image's static import checks don't apply */}
+            <img src={initial.logoUrl} alt="" className="h-10 w-auto rounded border border-slate-200 bg-white p-1" />
+            <label className="flex items-center gap-1.5 text-xs text-slate-500">
+              <input type="checkbox" name="removeLogo" className="h-3.5 w-3.5" />
+              Logoyu kaldır
+            </label>
+          </div>
+        )}
+        <input
+          type="file"
+          name="logo"
+          accept="image/png,image/jpeg,image/webp,image/svg+xml"
+          className="mt-2 block text-sm"
+        />
+        <p className="mt-1 text-xs text-slate-400">
+          Yüklerseniz mevcut logonun yerine geçer. Boş bırakırsanız mevcut logo (varsa) korunur.
+        </p>
+      </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>

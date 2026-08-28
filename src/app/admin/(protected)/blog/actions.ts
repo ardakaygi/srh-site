@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { assertAdminSession } from "@/lib/adminAuth";
+import { ImageUploadError, saveUploadedImage } from "@/lib/imageUpload";
 import { AVAILABLE_COVER_IMAGES } from "./coverImages";
 
 export type BlogFormState = { error?: string };
@@ -19,7 +20,8 @@ export async function upsertBlogPostAction(
   const title = String(formData.get("title") ?? "").trim();
   const excerpt = String(formData.get("excerpt") ?? "").trim();
   const category = String(formData.get("category") ?? "").trim();
-  const coverImage = String(formData.get("coverImage") ?? "");
+  const selectedCoverImage = String(formData.get("coverImage") ?? "");
+  const coverImageFile = formData.get("coverImageFile");
   const publishedAtRaw = String(formData.get("publishedAt") ?? "");
   const readMinutesRaw = String(formData.get("readMinutes") ?? "5");
 
@@ -39,7 +41,16 @@ export async function upsertBlogPostAction(
   if (!/^[a-z0-9-]+$/.test(slug)) {
     return { error: "Slug yalnızca küçük harf, rakam ve tire içerebilir." };
   }
-  if (!AVAILABLE_COVER_IMAGES.includes(coverImage)) {
+
+  let coverImage = selectedCoverImage;
+  if (coverImageFile instanceof File && coverImageFile.size > 0) {
+    try {
+      coverImage = await saveUploadedImage(coverImageFile, "blog-covers");
+    } catch (err) {
+      if (err instanceof ImageUploadError) return { error: err.message };
+      throw err;
+    }
+  } else if (!AVAILABLE_COVER_IMAGES.includes(coverImage)) {
     return { error: "Geçersiz kapak görseli." };
   }
 

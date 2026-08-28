@@ -3,12 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { BRAND_LOGO_MAP } from "@/lib/brandLogos";
 import { ilMarkaSlug } from "@/lib/slugs";
 
 interface BrandLite {
   slug: string;
   name: string;
+  logoUrl?: string | null;
 }
 
 export function BrandsMegaMenu({
@@ -55,13 +55,15 @@ export function BrandsMegaMenu({
                     className="flex flex-col items-center gap-1.5 rounded-xl border border-slate-100 p-3 text-center transition-colors hover:border-brand-200 hover:bg-brand-50"
                   >
                     <span className="flex h-8 w-full items-center justify-center">
-                      <Image
-                        src={BRAND_LOGO_MAP[brand.slug]}
-                        alt={brand.name}
-                        width={90}
-                        height={32}
-                        className="max-h-8 w-auto object-contain"
-                      />
+                      {brand.logoUrl && (
+                        <Image
+                          src={brand.logoUrl}
+                          alt={brand.name}
+                          width={90}
+                          height={32}
+                          className="max-h-8 w-auto object-contain"
+                        />
+                      )}
                     </span>
                     <span className="text-xs font-medium text-slate-600">{brand.name}</span>
                   </Link>

@@ -26,6 +26,14 @@ model Province {
   regionalIntro     String // genuinely regional paragraph (climate/usage angle) - must not be a template
   topBrandSlugs     String // JSON-encoded string[] of 3-5 Brand.slug most requested from this region
   faqJson           String // JSON-encoded {question, answer}[] - province-specific, not copy-pasted everywhere
+  // Real, license-verified landmark photo shown on this province's page
+  // (admin-uploadable, 2026-08-28 - migrated from the old static
+  // src/lib/provinceLandmarks.ts map so any of the 81 provinces can have
+  // one, not just the first 6). Null = no photo, page falls back to the
+  // single-column layout (see ProvincePageContent.tsx).
+  landmarkImage     String?
+  landmarkAlt       String?
+  landmarkCredit    String? // e.g. "Fotoğraf: X · CC BY-SA 4.0" - required whenever landmarkImage is set to a non-owned photo
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
@@ -41,6 +49,11 @@ model Brand {
   intro       String // brand-specific value proposition paragraph
   faultsJson  String // JSON-encoded {title, description}[] - brand-differentiated common faults
   faqJson     String // JSON-encoded {question, answer}[]
+  // Admin-uploadable logo (2026-08-28 - migrated from the hardcoded
+  // BRAND_LOGO_MAP/public/brand-logos which only covered 6 brands). Null
+  // = shown as plain text everywhere a logo would go, never a fabricated
+  // placeholder image.
+  logoUrl     String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

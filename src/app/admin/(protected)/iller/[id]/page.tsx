@@ -16,6 +16,9 @@ export default async function AdminProvinceEditPage({
     leadTimeLabel: province.leadTimeLabel,
     regionalIntro: province.regionalIntro,
     topBrandSlugs: (JSON.parse(province.topBrandSlugs) as string[]).join(", "),
+    landmarkImage: province.landmarkImage,
+    landmarkAlt: province.landmarkAlt ?? "",
+    landmarkCredit: province.landmarkCredit ?? "",
     faq: (JSON.parse(province.faqJson) as { question: string; answer: string }[]).map((f) => ({
       a: f.question,
       b: f.answer,

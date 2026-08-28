@@ -223,13 +223,55 @@ export interface ProvinceSeed {
   regionalIntro: string;
   topBrandSlugs: string; // JSON-encoded string[]
   faqJson: string; // JSON-encoded {question, answer}[]
+  landmarkImage?: string;
+  landmarkAlt?: string;
+  landmarkCredit?: string;
 }
 
 const HOME_BASE_SLUG = "samsun";
 
+// Real, license-verified landmark photos (2026-08-28) - only these 6 have
+// one so far, admin-editable/addable for the rest from /admin/iller (see
+// decisions.md). Files already existed in public/province-landmarks/ from
+// before this became DB-backed; this seed just points each province row
+// at its file instead of the old separate src/lib/provinceLandmarks.ts map.
+const LANDMARKS: Record<string, { image: string; alt: string; credit: string }> = {
+  samsun: {
+    image: "/province-landmarks/samsun.jpg",
+    alt: "Samsun'daki Onur Anıtı (Atatürk heykeli)",
+    credit: "Fotoğraf: Zeynel Cebeci · CC BY-SA 4.0",
+  },
+  istanbul: {
+    image: "/province-landmarks/istanbul.jpg",
+    alt: "İstanbul Boğaziçi Köprüsü",
+    credit: "Fotoğraf: İlke Bahçeci · CC0",
+  },
+  ankara: {
+    image: "/province-landmarks/ankara.jpg",
+    alt: "Ankara'daki Anıtkabir",
+    credit: "Fotoğraf: A.Savin, Wikipedia · Özgür Sanat Lisansı",
+  },
+  izmir: {
+    image: "/province-landmarks/izmir.jpg",
+    alt: "İzmir Saat Kulesi",
+    credit: "Fotoğraf: Carlos Delgado · CC BY-SA 3.0",
+  },
+  bursa: {
+    image: "/province-landmarks/bursa.jpg",
+    alt: "Bursa Ulu Camii ve çift minaresi",
+    credit: "Fotoğraf: Beñat Irasuegi · CC BY-SA 4.0",
+  },
+  antalya: {
+    image: "/province-landmarks/antalya.jpg",
+    alt: "Antalya Saat Kulesi",
+    credit: "Fotoğraf: Sharon Hahn Darlin · CC BY 2.0",
+  },
+};
+
 export const PROVINCES: ProvinceSeed[] = PROVINCE_TABLE.map((row) => {
   const meta = REGION_META[row.region];
   const isHomeBase = row.slug === HOME_BASE_SLUG;
+  const landmark = LANDMARKS[row.slug];
 
   return {
     slug: row.slug,
@@ -250,5 +292,8 @@ export const PROVINCES: ProvinceSeed[] = PROVINCE_TABLE.map((row) => {
     faqJson: isHomeBase
       ? JSON.stringify([])
       : JSON.stringify([shippingFaq(row.name), meta.faq2(row.name)]),
+    landmarkImage: landmark?.image,
+    landmarkAlt: landmark?.alt,
+    landmarkCredit: landmark?.credit,
   };
 });

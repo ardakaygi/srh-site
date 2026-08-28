@@ -14,6 +14,7 @@ export interface BrandSeed {
   intro: string;
   faultsJson: string; // JSON-encoded {title, description}[]
   faqJson: string; // JSON-encoded {question, answer}[]
+  logoUrl?: string;
 }
 
 export const EXTRA_BRANDS: BrandSeed[] = [
@@ -85,6 +86,7 @@ export const EXTRA_BRANDS: BrandSeed[] = [
   {
     slug: "samsung",
     name: "Samsung",
+    logoUrl: "/brand-logos/samsung.svg",
     intro:
       "Samsung'un Jet Bot serisi, akıllı ev ekosistemiyle entegre çalışabilen robot süpürgeler sunar. Samsun Robot Hastanesi'nde Samsung Jet Bot modellerinde elektronik ve motor onarımı yapıyoruz.",
     faultsJson: JSON.stringify([

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BRAND_LOGO_MAP, POPULAR_BRAND_SLUGS } from "@/lib/brandLogos";
 import type { BrandView } from "@/lib/data";
 import { ilMarkaSlug } from "@/lib/slugs";
 
@@ -17,12 +16,11 @@ function ChevronIcon() {
 }
 
 export function BrandsShowcase({ brands }: { brands: BrandView[] }) {
-  const bySlug = new Map(brands.map((b) => [b.slug, b]));
-  const popularBrands = POPULAR_BRAND_SLUGS.map((slug) => bySlug.get(slug)).filter(
-    (b): b is BrandView => Boolean(b),
-  );
-  const popularSlugSet = new Set(POPULAR_BRAND_SLUGS);
-  const otherBrands = brands.filter((b) => !popularSlugSet.has(b.slug));
+  // "Öne çıkan" = has an admin-uploaded logo (see /admin/markalar); a
+  // brand with no logo automatically lists as "diğer" until one is added -
+  // no hardcoded slug list to keep in sync.
+  const popularBrands = brands.filter((b) => b.logoUrl);
+  const otherBrands = brands.filter((b) => !b.logoUrl);
 
   return (
     <section className="bg-slate-50 px-4 py-14">
@@ -65,13 +63,15 @@ export function BrandsShowcase({ brands }: { brands: BrandView[] }) {
                   className="flex flex-col items-center gap-2 rounded-xl border border-slate-200 p-4 text-center transition-colors hover:border-brand-300 hover:shadow-sm"
                 >
                   <span className="flex h-9 w-full items-center justify-center">
-                    <Image
-                      src={BRAND_LOGO_MAP[brand.slug]}
-                      alt={brand.name}
-                      width={100}
-                      height={36}
-                      className="max-h-9 w-auto object-contain"
-                    />
+                    {brand.logoUrl && (
+                      <Image
+                        src={brand.logoUrl}
+                        alt={brand.name}
+                        width={100}
+                        height={36}
+                        className="max-h-9 w-auto object-contain"
+                      />
+                    )}
                   </span>
                   <span className="text-xs font-semibold text-brand-700">Tamir Merkezi</span>
                 </Link>

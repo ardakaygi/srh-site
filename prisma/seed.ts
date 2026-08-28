@@ -37,6 +37,7 @@ async function main() {
       data: {
         slug: "roborock",
         name: "Roborock",
+        logoUrl: "/brand-logos/roborock.svg",
         intro:
           "Roborock robot süpürgeler, güçlü LiDAR navigasyonu ve yüksek emiş gücüyle bilinir. Samsun Robot Hastanesi olarak Roborock'un tüm S, Q ve E serisi modellerinde batarya değişimi, LiDAR sensör onarımı, anakart tamiri ve yazılım/haritalama sorunlarına uzman teknik destek sağlıyoruz.",
         faultsJson: JSON.stringify([
@@ -57,6 +58,7 @@ async function main() {
       data: {
         slug: "xiaomi",
         name: "Xiaomi",
+        logoUrl: "/brand-logos/xiaomi.svg",
         intro:
           "Xiaomi Mi Robot Vacuum serisi, fiyat/performans dengesiyle Türkiye'de en yaygın kullanılan robot süpürgeler arasında. Samsun Robot Hastanesi, Xiaomi'nin lazer navigasyon sistemli tüm modellerinde teknik servis ve batarya yenileme hizmeti sunar.",
         faultsJson: JSON.stringify([
@@ -74,6 +76,7 @@ async function main() {
       data: {
         slug: "dreame",
         name: "Dreame",
+        logoUrl: "/brand-logos/dreame.svg",
         intro:
           "Dreame, otomatik toz boşaltma ve yüksek emiş gücüyle öne çıkan bir marka. Samsun Robot Hastanesi'nde Dreame'in X ve L serisi modellerinde istasyon, sensör ve batarya onarımı yapıyoruz.",
         faultsJson: JSON.stringify([
@@ -90,6 +93,7 @@ async function main() {
       data: {
         slug: "ecovacs",
         name: "Ecovacs",
+        logoUrl: "/brand-logos/ecovacs.png",
         intro:
           "Ecovacs Deebot serisi, çok yönlü temizlik modlarıyla bilinir. Samsun Robot Hastanesi, Deebot modellerinde navigasyon, mop sistemi ve anakart onarımı konusunda uzmanlaşmıştır.",
         faultsJson: JSON.stringify([
@@ -106,6 +110,7 @@ async function main() {
       data: {
         slug: "irobot",
         name: "iRobot",
+        logoUrl: "/brand-logos/irobot.svg",
         intro:
           "iRobot Roomba, robot süpürge pazarının öncü markalarından. Samsun Robot Hastanesi'nde Roomba'nın fırça sistemi, batarya ve dock istasyonu arızalarına teknik çözüm sunuyoruz.",
         faultsJson: JSON.stringify([

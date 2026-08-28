@@ -4,7 +4,6 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { TrustBadges } from "@/components/TrustBadges";
 import { JsonLd } from "@/components/JsonLd";
 import { getBrandsBySlugs, getNearbyProvinces, type ProvinceView } from "@/lib/data";
-import { PROVINCE_LANDMARKS } from "@/lib/provinceLandmarks";
 import { faqPageNode, localBusinessNode, serviceNode } from "@/lib/schema";
 import { ilMarkaSlug } from "@/lib/slugs";
 
@@ -25,7 +24,9 @@ export async function ProvincePageContent({
     getBrandsBySlugs(province.topBrandSlugs),
     getNearbyProvinces(province.region, province.slug),
   ]);
-  const landmark = PROVINCE_LANDMARKS[province.slug];
+  const landmark = province.landmarkImage
+    ? { src: province.landmarkImage, alt: province.landmarkAlt ?? province.name }
+    : null;
 
   const jsonLd = {
     "@context": "https://schema.org",

@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { assertAdminSession } from "@/lib/adminAuth";
+import { ImageUploadError, saveUploadedImage } from "@/lib/imageUpload";
 
 export type BrandFormState = { error?: string };
 
@@ -33,6 +34,8 @@ export async function upsertBrandAction(
   const intro = String(formData.get("intro") ?? "").trim();
   const faultsJson = parsePairs(String(formData.get("faults") ?? "[]"), "title", "description");
   const faqJson = parsePairs(String(formData.get("faq") ?? "[]"), "question", "answer");
+  const removeLogo = formData.get("removeLogo") === "on";
+  const logoFile = formData.get("logo");
 
   if (!slug || !name || !intro) {
     return { error: "Slug, isim ve tanıtım metni zorunludur." };
@@ -41,7 +44,26 @@ export async function upsertBrandAction(
     return { error: "Slug yalnızca küçük harf, rakam ve tire içerebilir." };
   }
 
-  const data = { slug, name, intro, faultsJson, faqJson };
+  let logoUrl: string | null | undefined; // undefined = don't touch the existing value
+  if (logoFile instanceof File && logoFile.size > 0) {
+    try {
+      logoUrl = await saveUploadedImage(logoFile, "brands");
+    } catch (err) {
+      if (err instanceof ImageUploadError) return { error: err.message };
+      throw err;
+    }
+  } else if (removeLogo) {
+    logoUrl = null;
+  }
+
+  const data = {
+    slug,
+    name,
+    intro,
+    faultsJson,
+    faqJson,
+    ...(logoUrl !== undefined ? { logoUrl } : {}),
+  };
 
   if (id === "yeni") {
     const existing = await prisma.brand.findUnique({ where: { slug } });

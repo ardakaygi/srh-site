@@ -22,7 +22,10 @@ export default async function AdminProvincesPage() {
             className="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm hover:border-brand-300 hover:shadow-sm"
           >
             <span className="font-medium text-slate-800">{p.name}</span>
-            <span className="text-xs text-slate-400">{p.region}</span>
+            <span className="flex items-center gap-2 text-xs text-slate-400">
+              {p.landmarkImage && <span title="Fotoğraf var">📷</span>}
+              {p.region}
+            </span>
           </Link>
         ))}
       </div>

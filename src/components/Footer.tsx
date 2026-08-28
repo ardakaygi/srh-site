@@ -3,6 +3,7 @@ import Link from "next/link";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ChipIcon, SearchIcon, ShieldCheckIcon, TruckIcon } from "@/components/ServiceIcons";
 import { getAllBrands } from "@/lib/data";
+import { getSiteSettings } from "@/lib/siteSettings";
 import { ilMarkaSlug } from "@/lib/slugs";
 import { siteConfig } from "@/lib/site-config";
 
@@ -66,7 +67,7 @@ function WhatsAppIcon() {
 }
 
 export async function Footer() {
-  const allBrands = await getAllBrands();
+  const [allBrands, settings] = await Promise.all([getAllBrands(), getSiteSettings()]);
   const footerBrands = FOOTER_BRAND_SLUGS.map((slug) => allBrands.find((b) => b.slug === slug)).filter(
     (b): b is NonNullable<typeof b> => Boolean(b),
   );
@@ -87,9 +88,7 @@ export async function Footer() {
               />
               <span className="text-lg font-bold text-white">{siteConfig.businessName}</span>
             </Link>
-            <p className="mt-3 text-sm text-brand-200">
-              Karadeniz&apos;in En Kapsamlı Robot Süpürge Tamir Merkezi
-            </p>
+            <p className="mt-3 text-sm text-brand-200">{settings.brand_tagline}</p>
           </div>
 
           <div>

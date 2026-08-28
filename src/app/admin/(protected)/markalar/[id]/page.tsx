@@ -22,6 +22,7 @@ export default async function AdminBrandEditPage({
     slug: brand?.slug ?? "",
     name: brand?.name ?? "",
     intro: brand?.intro ?? "",
+    logoUrl: brand?.logoUrl ?? null,
     faults: brand
       ? (JSON.parse(brand.faultsJson) as { title: string; description: string }[]).map((f) => ({
           a: f.title,
