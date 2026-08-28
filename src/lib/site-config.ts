@@ -10,7 +10,12 @@ export const siteConfig = {
   // This is the registered legal/commercial entity operating the
   // "Samsun Robot Hastanesi" consumer-facing brand; used on legal pages
   // (KVKK, Yasal Uyarı) where the actual ticaret unvanı is required.
-  legalEntityName: "Starfon Teknoloji San. Tic. Ltd. Şti.",
+  // Full official ticaret unvanı as it appears on the business's Türk
+  // Patent ve Marka Kurumu trademark application receipt (2024/135167,
+  // 15.10.2024) - a more authoritative source than the shortened form the
+  // user gave verbally, and consistent with it (same company).
+  legalEntityName:
+    "Starfon Teknoloji Elektronik Telefon Bilgisayar Sanayi ve Ticaret Limited Şirketi",
   // TODO(confirm-before-launch): real production domain.
   siteUrl: "https://samsunrobothastanesi.com.tr",
   // Confirmed by the user directly in-session (2026-08-27) - not inferred.
@@ -24,6 +29,14 @@ export const siteConfig = {
   workingHours: "Pzt-Cmt 08:30-19:30",
   // Confirmed by the user directly in-session (2026-08-27) - not inferred.
   warrantyLabel: "6 Ay Garanti",
+  // Confirmed by the user directly in-session (2026-08-28) - not inferred.
+  // Used specifically for KVKK data-subject requests (kvkk-aydinlatma-metni).
+  supportEmail: "destek@samsunrobothastanesi.com.tr",
+  // Confirmed by the user directly in-session (2026-08-28) - not inferred.
+  // General contact address, shown in the footer.
+  contactEmail: "servis@samsunrobothastanesi.com.tr",
+  // Confirmed by the user directly in-session (2026-08-28) - not inferred.
+  cargoPartnerName: "Yurtiçi Kargo Servisi A.Ş.",
 } as const;
 
 /** Builds a wa.me click-to-chat link with a Turkish, page-contextual pre-filled message. */

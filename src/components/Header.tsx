@@ -88,7 +88,7 @@ export async function Header() {
       {/* Main row */}
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 border-b border-black/10 px-4 py-3">
         <Link href="/" className="flex shrink-0 items-center gap-2.5">
-          <Image src="/logo.svg" alt="" aria-hidden="true" width={36} height={36} className="h-9 w-9" />
+          <Image src="/logo.svg" alt="" aria-hidden="true" width={48} height={48} className="h-12 w-12" />
           <span className="text-lg font-bold text-slate-900">{siteConfig.businessName}</span>
         </Link>
 

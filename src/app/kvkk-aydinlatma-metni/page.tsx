@@ -54,8 +54,8 @@ export default function KvkkPage() {
         <h2>4. Kişisel Verilerin Aktarılması</h2>
         <p>
           Kargo/teslimat sürecinin yürütülmesi amacıyla anlaşmalı kargo
-          firması ile adınız, telefon numaranız ve adresiniz paylaşılabilir.
-          [Kargo firması adı teyit edildiğinde buraya eklenecektir.]
+          firmamız {siteConfig.cargoPartnerName} ile adınız, telefon
+          numaranız ve adresiniz paylaşılabilir.
         </p>
 
         <h2>5. Veri Sahibinin Hakları</h2>
@@ -63,8 +63,12 @@ export default function KvkkPage() {
           KVKK&apos;nın 11. maddesi uyarınca kişisel verilerinizin işlenip
           işlenmediğini öğrenme, işlenmişse buna ilişkin bilgi talep etme,
           düzeltilmesini veya silinmesini isteme haklarına sahipsiniz.
-          Başvurularınızı [iletişim kanalı teyit edilecek] üzerinden
-          iletebilirsiniz. Başvurunuz en geç 30 gün içinde yanıtlanır.
+          Başvurularınızı{" "}
+          <a href={`mailto:${siteConfig.supportEmail}`} className="text-brand-700 underline">
+            {siteConfig.supportEmail}
+          </a>{" "}
+          üzerinden iletebilirsiniz. Başvurunuz en geç 30 gün içinde
+          yanıtlanır.
         </p>
       </div>
     </div>

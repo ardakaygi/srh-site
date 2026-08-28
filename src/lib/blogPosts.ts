@@ -13,6 +13,7 @@ export interface BlogSection {
 
 export interface BlogPost {
   slug: string;
+  coverImage: string;
   title: string;
   excerpt: string;
   category: string;
@@ -24,6 +25,7 @@ export interface BlogPost {
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "robot-supurge-omrunu-uzatmanin-10-yolu",
+    coverImage: "/blog-covers/brush.jpg",
     title: "Robot Süpürgenizin Ömrünü Uzatmanın 10 Yolu",
     excerpt: "Doğru bakım alışkanlıklarıyla robot süpürgenizin motor, sensör ve batarya ömrünü belirgin şekilde uzatabilirsiniz.",
     category: "Bakım",
@@ -39,6 +41,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "robot-supurge-sarj-olmuyor-ne-yapmali",
+    coverImage: "/blog-covers/charger.jpg",
     title: "Robot Süpürge Şarj Almıyorsa Yapılması Gerekenler",
     excerpt: "Şarj olmama şikayeti genelde basit bir temas sorunundan kaynaklanır; ama bazı durumlarda batarya veya devre kartı onarımı gerekir.",
     category: "Arıza Rehberi",
@@ -53,6 +56,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "lidar-sensoru-nedir-bakimi-nasil-yapilir",
+    coverImage: "/blog-covers/navigation.jpg",
     title: "LiDAR Sensörü Nedir, Bakımı Nasıl Yapılır?",
     excerpt: "Robot süpürgelerin haritalama yeteneğinin kalbi olan LiDAR sensörü hakkında bilmeniz gerekenler.",
     category: "Teknik Bilgi",
@@ -67,6 +71,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "robot-supurge-bataryasi-ne-zaman-degismeli",
+    coverImage: "/blog-covers/charger.jpg",
     title: "Robot Süpürge Bataryası Ne Zaman Değişmeli?",
     excerpt: "Çalışma süresindeki kısalma her zaman batarya sorunu değildir; ama bazı belirtiler kesin bir işarettir.",
     category: "Bakım",
@@ -81,6 +86,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "mop-paspas-modu-calismiyor-kontrol-listesi",
+    coverImage: "/blog-covers/mop.jpg",
     title: "Paspaslama (Mop) Modu Çalışmıyorsa Kontrol Listesi",
     excerpt: "Su akmıyor, sürekli damlıyor veya paspas hiç ıslanmıyor mu? İşte adım adım kontrol listesi.",
     category: "Arıza Rehberi",
@@ -95,6 +101,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "robot-supurgeyi-kislik-saklama-rehberi",
+    coverImage: "/blog-covers/charger.jpg",
     title: "Robot Süpürgenizi Uzun Süre Kullanmayacaksanız Nasıl Saklamalısınız?",
     excerpt: "Yazlık eve taşınma, uzun tatil veya cihaz değişimi öncesi doğru saklama batarya sağlığını korur.",
     category: "Bakım",
@@ -109,6 +116,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "evcil-hayvan-tuyu-robot-supurgeyi-nasil-etkiler",
+    coverImage: "/blog-covers/stuck.jpg",
     title: "Evcil Hayvan Tüyleri Robot Süpürgenizi Nasıl Etkiler?",
     excerpt: "Evcil hayvan sahipleri için robot süpürge bakımında dikkat edilmesi gereken ekstra noktalar.",
     category: "Bakım",
@@ -123,6 +131,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "roborock-xiaomi-dreame-hangi-marka-hangi-ihtiyaca-uygun",
+    coverImage: "/blog-covers/brush.jpg",
     title: "Roborock, Xiaomi, Dreame: Hangi Marka Hangi İhtiyaca Uygun?",
     excerpt: "Türkiye'de en çok tercih edilen üç markanın güçlü yönlerine genel bir bakış.",
     category: "Marka Rehberi",
@@ -137,6 +146,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "robot-supurge-haritalama-hatasi-neden-olur",
+    coverImage: "/blog-covers/navigation.jpg",
     title: "Robot Süpürge Haritalama Hatası Neden Olur?",
     excerpt: "Cihaz odaları karıştırıyor veya aynı yeri tekrar tekrar süpürüyorsa olası nedenler bunlar.",
     category: "Arıza Rehberi",
@@ -151,6 +161,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "orijinal-mi-orijinal-esdegeri-mi-yedek-parca-rehberi",
+    coverImage: "/blog-covers/brush.jpg",
     title: "Orijinal mı, Orijinal Eşdeğeri mi? Yedek Parça Rehberi",
     excerpt: "Robot süpürge onarımında kullanılan yedek parça türleri ve aralarındaki fark.",
     category: "Bilgilendirme",
@@ -165,6 +176,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "garanti-suresi-dolan-robot-supurgede-ne-yapmali",
+    coverImage: "/blog-covers/charger.jpg",
     title: "Robot Süpürgenizde Garanti Süresi Dolduysa Ne Yapmalısınız?",
     excerpt: "Garanti bitince cihazın çöpe gitmesi gerekmez; bağımsız teknik servis seçenekleri mevcuttur.",
     category: "Bilgilendirme",
@@ -178,6 +190,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "samsunda-robot-supurge-servisi-adim-adim",
+    coverImage: "/blog-covers/mop.jpg",
     title: "Samsun'da Robot Süpürge Servisi Nasıl Çalışır? Adım Adım",
     excerpt: "Servis talebinden cihazın elinize geri ulaşmasına kadar tüm süreç.",
     category: "Bilgilendirme",
@@ -192,6 +205,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "anakart-arizasi-belirtileri-ve-onarim-sureci",
+    coverImage: "/blog-covers/stuck.jpg",
     title: "Anakart Arızası Belirtileri ve Onarım Süreci",
     excerpt: "Cihaz hiç açılmıyor veya rastgele kapanıyorsa anakart kaynaklı bir sorun olabilir.",
     category: "Teknik Bilgi",
@@ -206,6 +220,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "wifi-baglanti-sorunlari-ve-cozumleri",
+    coverImage: "/blog-covers/navigation.jpg",
     title: "Robot Süpürge Wi-Fi Bağlantı Sorunları ve Çözümleri",
     excerpt: "Uygulamaya bağlanamayan cihazlar için deneyebileceğiniz adımlar.",
     category: "Arıza Rehberi",
@@ -220,6 +235,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "otomatik-toz-bosaltma-istasyonu-bakimi",
+    coverImage: "/blog-covers/stuck.jpg",
     title: "Otomatik Toz Boşaltma İstasyonu Bakımı",
     excerpt: "İstasyonlu modellerde düzenli bakım, hem robotun hem istasyonun ömrünü uzatır.",
     category: "Bakım",
@@ -234,6 +250,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "robot-supurge-alirken-dikkat-edilmesi-gereken-7-kriter",
+    coverImage: "/blog-covers/charger.jpg",
     title: "Robot Süpürge Alırken Dikkat Edilmesi Gereken 7 Kriter",
     excerpt: "Yeni bir robot süpürge alırken sadece emiş gücüne bakmak yeterli değildir.",
     category: "Marka Rehberi",
@@ -251,6 +268,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "firca-ve-filtre-temizligi-ne-siklikla-yapilmali",
+    coverImage: "/blog-covers/brush.jpg",
     title: "Fırça ve Filtre Temizliği: Ne Sıklıkla Yapılmalı?",
     excerpt: "Basit ama gözden kaçan bu bakım adımı, en sık karşılaşılan arızaların çoğunu önler.",
     category: "Bakım",
@@ -265,6 +283,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "robot-supurge-neden-ayni-yeri-tekrar-supuruyor",
+    coverImage: "/blog-covers/navigation.jpg",
     title: "Robot Süpürgeniz Neden Aynı Yeri Tekrar Tekrar Süpürüyor?",
     excerpt: "Verimsiz temizlik rotalarının arkasındaki teknik nedenler.",
     category: "Arıza Rehberi",
@@ -279,6 +298,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "kargo-ile-robot-supurge-gonderirken-paketleme-rehberi",
+    coverImage: "/blog-covers/mop.jpg",
     title: "Kargo ile Robot Süpürge Gönderirken Paketleme Rehberi",
     excerpt: "Cihazınızın taşıma sırasında hasar görmemesi için basit ama etkili öneriler.",
     category: "Bilgilendirme",
@@ -293,6 +313,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "bakimi-kendiniz-mi-yapmalisiniz-servise-mi-goturmelisiniz",
+    coverImage: "/blog-covers/brush.jpg",
     title: "Robot Süpürge Bakımını Kendiniz mi Yapmalısınız, Servise mi Götürmelisiniz?",
     excerpt: "Hangi işlemler ev bakımıyla çözülür, hangileri profesyonel müdahale gerektirir?",
     category: "Bilgilendirme",

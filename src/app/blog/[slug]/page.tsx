@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { BlogCoverImage } from "@/components/BlogCoverImage";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { BLOG_POSTS } from "@/lib/blogPosts";
@@ -75,6 +76,10 @@ export default async function BlogPostPage({
         <span>{formatDate(post.publishedAt)}</span>
         <span>·</span>
         <span>{post.readMinutes} dk okuma</span>
+      </div>
+
+      <div className="mt-6 overflow-hidden rounded-2xl">
+        <BlogCoverImage src={post.coverImage} alt={post.title} aspectClassName="aspect-[16/8]" />
       </div>
 
       <div className="prose prose-slate mt-8 max-w-none">

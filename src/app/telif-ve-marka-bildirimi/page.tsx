@@ -59,6 +59,36 @@ const logoCredits = [
   },
 ];
 
+// Every src here must correspond to a real, downloaded file in
+// public/blog-covers/ — see decisions.md for the sourcing history.
+const BLOG_COVER_CREDITS = [
+  {
+    src: "/blog-covers/charger.jpg",
+    alt: "Şarj istasyonu önünde robot süpürge",
+    credit: "Fotoğraf: Anastasiya Lvova · CC BY-SA 4.0",
+  },
+  {
+    src: "/blog-covers/stuck.jpg",
+    alt: "Bir eşyaya takılıp kalmış robot süpürge",
+    credit: "Fotoğraf: BoldLuis · CC BY-SA 4.0",
+  },
+  {
+    src: "/blog-covers/mop.jpg",
+    alt: "Zeminde çalışan robot süpürge",
+    credit: "Fotoğraf: Mamirobothk · CC BY-SA 3.0",
+  },
+  {
+    src: "/blog-covers/brush.jpg",
+    alt: "Robot süpürgenin alt kısmı ve fırçaları",
+    credit: "Fotoğraf: Stimpack · CC0",
+  },
+  {
+    src: "/blog-covers/navigation.jpg",
+    alt: "Robot süpürgenin temizlik rotasını gösteren zaman atlamalı fotoğraf",
+    credit: "Fotoğraf: Chris Bartle · CC BY 2.0",
+  },
+];
+
 export default async function TelifVeMarkaBildirimiPage() {
   const brands = await getAllBrands();
   const logoSlugSet = new Set(logoCredits.map((c) => c.slug));
@@ -84,6 +114,49 @@ export default async function TelifVeMarkaBildirimiPage() {
           Bu sayfa, bunların kaynak ve lisans bilgilerini tek bir yerde
           topluca listeler.
         </p>
+
+        <h2>{siteConfig.businessName} Marka Başvurumuz</h2>
+        <p>
+          &quot;SRH Samsun Robot Hastanesi&quot; şekil + kelime markası,
+          Türk Patent ve Marka Kurumu&apos;na {siteConfig.legalEntityName}{" "}
+          unvanıyla, aşağıdaki bilgilerle başvurulmuştur. (Bu bir başvuru
+          kaydıdır; nihai tescil belgesi netleştiğinde bu bölüm
+          güncellenecektir. Başvuruya ait ücret, kimlik/iletişim bilgileri
+          ve dekont numarası gizlilik nedeniyle bu sayfada paylaşılmamıştır.)
+        </p>
+        <div className="not-prose mt-4 flex flex-col gap-4 rounded-xl border border-slate-200 p-4 sm:flex-row sm:items-center">
+          <span className="flex h-16 w-32 shrink-0 items-center justify-center">
+            <Image
+              src="/logo.svg"
+              alt="SRH Samsun Robot Hastanesi marka örneği"
+              width={120}
+              height={64}
+              className="max-h-16 w-auto object-contain"
+            />
+          </span>
+          <dl className="grid flex-1 grid-cols-1 gap-x-4 gap-y-2 text-sm sm:grid-cols-2">
+            <div>
+              <dt className="font-semibold text-slate-800">Başvuru Numarası</dt>
+              <dd className="text-slate-600">2024/135167</dd>
+            </div>
+            <div>
+              <dt className="font-semibold text-slate-800">Başvuru Tarihi</dt>
+              <dd className="text-slate-600">15.10.2024</dd>
+            </div>
+            <div>
+              <dt className="font-semibold text-slate-800">Marka Tipi</dt>
+              <dd className="text-slate-600">Şekil + Kelime</dd>
+            </div>
+            <div className="sm:col-span-2">
+              <dt className="font-semibold text-slate-800">Marka Sınıfı</dt>
+              <dd className="text-slate-600">
+                (37-9) Sınai makinelerin ve cihazların, büro makinelerinin ve
+                cihazlarının, haberleşme cihazlarının, elektrikli ve
+                elektronik cihazların tesisi, bakımı ve tamiri hizmetleri.
+              </dd>
+            </div>
+          </dl>
+        </div>
 
         <h2>Marka Logoları</h2>
         <p>
@@ -154,12 +227,20 @@ export default async function TelifVeMarkaBildirimiPage() {
           ))}
         </ul>
 
-        <h2>Ürün Fotoğrafı</h2>
+        <h2>Blog Görselleri</h2>
         <p>
-          Ana sayfadaki robot süpürge fotoğrafı, Pexels üzerinden Andrey
-          Matveev&apos;e ait standart ücretsiz lisans kapsamında
-          kullanılmaktadır.
+          Blog yazılarının kapak fotoğrafları, üzerlerinde düşük opaklıkta
+          gösterilen logomuz dışında değiştirilmemiş, gerçek Wikimedia
+          Commons fotoğraflarıdır:
         </p>
+        <ul className="not-prose mt-4 grid gap-2 text-sm text-slate-600 sm:grid-cols-2">
+          {BLOG_COVER_CREDITS.map((c) => (
+            <li key={c.src} className="rounded-lg border border-slate-200 p-3">
+              <span className="block font-semibold text-slate-800">{c.alt}</span>
+              {c.credit}
+            </li>
+          ))}
+        </ul>
 
         <h2>Genel Feragatname</h2>
         <p>

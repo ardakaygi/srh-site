@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BlogCoverImage } from "@/components/BlogCoverImage";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { BLOG_POSTS } from "@/lib/blogPosts";
 
@@ -39,16 +40,19 @@ export default function BlogIndexPage() {
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
-            className="flex flex-col rounded-2xl border border-slate-200 p-5 transition-shadow hover:shadow-md"
+            className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 transition-shadow hover:shadow-md"
           >
-            <span className="text-xs font-semibold uppercase tracking-wide text-brand-600">
-              {post.category}
-            </span>
-            <h2 className="mt-2 text-lg font-bold text-slate-900">{post.title}</h2>
-            <p className="mt-2 flex-1 text-sm text-slate-600">{post.excerpt}</p>
-            <div className="mt-4 flex items-center justify-between text-xs text-slate-500">
-              <span>{formatDate(post.publishedAt)}</span>
-              <span>{post.readMinutes} dk okuma</span>
+            <BlogCoverImage src={post.coverImage} alt={post.title} />
+            <div className="flex flex-1 flex-col p-5">
+              <span className="text-xs font-semibold uppercase tracking-wide text-brand-600">
+                {post.category}
+              </span>
+              <h2 className="mt-2 text-lg font-bold text-slate-900">{post.title}</h2>
+              <p className="mt-2 flex-1 text-sm text-slate-600">{post.excerpt}</p>
+              <div className="mt-4 flex items-center justify-between text-xs text-slate-500">
+                <span>{formatDate(post.publishedAt)}</span>
+                <span>{post.readMinutes} dk okuma</span>
+              </div>
             </div>
           </Link>
         ))}

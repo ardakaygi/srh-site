@@ -1,12 +1,15 @@
 /**
  * Abstracted cargo carrier interface (MASTER_PROMPT.md §3, §8.2).
  *
- * The business has not confirmed which carrier(s) they actually use
- * (Yurtiçi / Aras / MNG / an aggregator such as Kargo Entegratör or Basit
- * Kargo). This interface lets the rest of the app depend on a stable
- * contract while that decision is made — implement `CarrierProvider` with
+ * The business confirmed their carrier is Yurtiçi Kargo (2026-08-28, see
+ * decisions.md and site-config.ts's cargoPartnerName) but a real API
+ * integration (credentials, shipment creation, live tracking URLs) has
+ * not been built yet — this interface lets the rest of the app depend on
+ * a stable contract while that's done; implement `CarrierProvider` with
  * the real integration later without touching UI or route code.
  */
+
+import { siteConfig } from "@/lib/site-config";
 
 export interface CreateShipmentInput {
   serviceRequestId: string;
@@ -28,17 +31,18 @@ export interface CarrierProvider {
 }
 
 /**
- * Stub implementation used until a real carrier integration is wired up.
- * Does not call any external API - safe to use in dev/tests. Replace with
- * a real provider (see `CarrierProvider`) once the business confirms which
- * cargo company they are contracted with.
+ * Stub implementation used until a real Yurtiçi Kargo API integration is
+ * wired up (no credentials/contract details yet). Does not call any
+ * external API - safe to use in dev/tests. The display name is real
+ * (site-config.ts's cargoPartnerName); only the actual shipment-creation
+ * and live tracking URL are placeholders.
  */
 export class StubCarrierProvider implements CarrierProvider {
   async createShipment(
     input: CreateShipmentInput,
   ): Promise<CreateShipmentResult> {
     return {
-      carrierName: "Kargo Ortağı (yapılandırılacak)",
+      carrierName: siteConfig.cargoPartnerName,
       carrierTrackingUrl: `/servis-takip?kod=${encodeURIComponent(input.trackingCode)}`,
     };
   }

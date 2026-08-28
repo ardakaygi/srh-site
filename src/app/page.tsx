@@ -54,42 +54,12 @@ const rotatingFaults = [
   "Bağlantı Kurmuyorsa",
 ];
 
-const heroCallouts = [
-  {
-    title: "Ücretsiz Arıza Tespiti",
-    description: "Cihazınızı gönderin, ücretsiz arıza tespiti yapalım.",
-    className: "right-0 top-2 lg:right-[-1rem]",
-  },
-  {
-    title: "Hızlı & Güvenli Servis",
-    description: "Uzman teknisyenlerimizle güvenli ellerdesiniz.",
-    className: "left-0 top-1/2 -translate-y-1/2 lg:left-[-2rem]",
-  },
-  {
-    title: siteConfig.warrantyLabel,
-    description: "Yaptığımız tüm onarım ve batarya değişimleri garanti kapsamındadır.",
-    className: "right-4 bottom-0 lg:right-[-0.5rem]",
-  },
-];
-
 function CheckIcon({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg viewBox="0 0 20 20" fill="currentColor" className={`shrink-0 text-brand-600 ${className}`}>
       <path
         fillRule="evenodd"
         d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-        clipRule="evenodd"
-      />
-    </svg>
-  );
-}
-
-function SearchIcon() {
-  return (
-    <svg viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5 text-brand-600">
-      <path
-        fillRule="evenodd"
-        d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
         clipRule="evenodd"
       />
     </svg>
@@ -179,10 +149,10 @@ export default async function HomePage() {
 
   return (
     <div>
-      <section className="relative overflow-hidden bg-white px-4 py-16 sm:py-20">
+      <section className="relative overflow-hidden bg-gradient-to-br from-brand-100 via-brand-50 to-white px-4 py-16 sm:py-20">
         {/* Decorative gradient wash - purely visual, sits behind content */}
         <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-          <div className="absolute inset-y-0 right-0 w-full bg-gradient-to-bl from-brand-50 via-white to-white lg:w-2/3" />
+          <div className="absolute inset-y-0 right-0 w-full bg-gradient-to-bl from-brand-200/70 via-brand-50/60 to-transparent lg:w-2/3" />
         </div>
 
         <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2">
@@ -243,48 +213,31 @@ export default async function HomePage() {
             </div>
           </div>
 
-          {/* Right: decorative rings + product photo + floating feature callouts */}
+          {/* Right: decorative rings + logo */}
           <div className="animate-fade-up relative mx-auto hidden aspect-square w-full max-w-md [animation-delay:150ms] lg:block">
             <div className="absolute inset-0 rounded-full bg-brand-50" />
             <div className="absolute inset-[8%] rounded-full border border-brand-100" />
             <div className="absolute inset-[18%] rounded-full border border-brand-200" />
             <Image
-              src="/hero-robot.jpg"
-              alt="Robot süpürge"
-              width={480}
-              height={480}
+              src="/logo.svg"
+              alt={siteConfig.businessName}
+              width={280}
+              height={280}
               priority
-              className="absolute inset-[14%] h-[72%] w-[72%] rounded-full object-cover shadow-xl shadow-brand-900/15"
+              className="absolute inset-[28%] h-[44%] w-[44%] object-contain"
             />
-
-            {heroCallouts.map((callout) => (
-              <div
-                key={callout.title}
-                className={`absolute w-56 rounded-2xl bg-white p-4 shadow-lg shadow-slate-900/10 ${callout.className}`}
-              >
-                <div className="flex items-start gap-3">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-50">
-                    <SearchIcon />
-                  </span>
-                  <div>
-                    <p className="text-sm font-bold text-slate-900">{callout.title}</p>
-                    <p className="mt-0.5 text-xs text-slate-500">{callout.description}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
           </div>
 
-          {/* Compact mobile/tablet fallback for the visual above (no floating cards - avoids overlap on small screens) */}
+          {/* Compact mobile/tablet fallback for the visual above */}
           <div className="animate-fade-up relative mx-auto block aspect-square w-48 [animation-delay:150ms] lg:hidden">
             <div className="absolute inset-0 rounded-full bg-brand-50" />
             <div className="absolute inset-[10%] rounded-full border border-brand-200" />
             <Image
-              src="/hero-robot.jpg"
-              alt="Robot süpürge"
-              width={200}
-              height={200}
-              className="absolute inset-[15%] h-[70%] w-[70%] rounded-full object-cover shadow-lg shadow-brand-900/15"
+              src="/logo.svg"
+              alt={siteConfig.businessName}
+              width={120}
+              height={120}
+              className="absolute inset-[28%] h-[44%] w-[44%] object-contain"
             />
           </div>
         </div>

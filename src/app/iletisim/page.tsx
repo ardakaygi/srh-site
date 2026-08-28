@@ -36,6 +36,14 @@ export default function IletisimPage() {
           <dt className="text-sm font-medium text-slate-500">Çalışma Saatleri</dt>
           <dd>{siteConfig.workingHours}</dd>
         </div>
+        <div>
+          <dt className="text-sm font-medium text-slate-500">E-posta</dt>
+          <dd>
+            <a href={`mailto:${siteConfig.supportEmail}`} className="text-brand-700 hover:underline">
+              {siteConfig.supportEmail}
+            </a>
+          </dd>
+        </div>
       </dl>
 
       <div className="mt-8 flex flex-wrap gap-3">
